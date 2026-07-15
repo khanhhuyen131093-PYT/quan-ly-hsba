@@ -9,8 +9,8 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <meta name="application-name" content="HSBA Trung tâm">
-  <meta name="version" content="2026.07.13.02">
-  <title>Quản lý hồ sơ bệnh án</title>
+  <meta name="version" content="2026.07.15.04">
+  <title>Hồ sơ bệnh án lưu trữ</title>
 
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -3248,7 +3248,7 @@ body {
 
 
 /* ============================================================
-   FIREBASE — ĐĂNG NHẬP VÀ TRẠNG THÁI TÀI KHOẢN
+   ĐĂNG NHẬP VÀ TRẠNG THÁI TÀI KHOẢN
    ============================================================ */
 
 .firebase-test-badge {
@@ -3672,6 +3672,196 @@ body {
   }
 }
 
+
+
+    /* Bổ sung giao diện hồ sơ lưu trữ */
+    .record-dialog { width: min(680px, calc(100vw - 28px)); }
+    .large-dialog { width: min(860px, calc(100vw - 28px)); }
+    .form-grid { display: grid; gap: 16px; }
+    .form-grid.two-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .conditional-field { grid-column: 1 / -1; }
+    .existing-file-notice {
+      display: block;
+      margin-top: 8px;
+      padding: 9px 11px;
+      border-radius: 10px;
+      background: #eaf8f5;
+      color: #166b69;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .detail-action-group { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+    .btn.secondary-action { background: #eef7f6; color: #126e72; border-color: #cde8e5; }
+    .btn.edit-action { background: #fff8e9; color: #9a6516; border-color: #f4d89d; }
+    .death-year-toolbar {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      margin: 14px 0; padding: 12px 14px; background: #f7fbfb;
+      border: 1px solid #dcebea; border-radius: 14px;
+    }
+    .death-year-toolbar label { margin: 0; display: flex; align-items: center; gap: 8px; }
+    .death-year-toolbar select { min-width: 150px; }
+    .legacy-status-note { font-size: 11px; color: #9a6516; display: block; margin-top: 4px; }
+    .patient-meta-inline { display: flex; gap: 12px; flex-wrap: wrap; color: #52656b; }
+    .patient-meta-inline strong { color: #153c43; }
+    .status-filter-list { grid-template-columns: repeat(5, minmax(116px, 1fr)); }
+    @media (min-width: 769px) {
+      .advanced-filter-open-btn, .clear-filters-btn { display: none !important; }
+    }
+    @media (max-width: 768px) {
+      .form-grid.two-columns { grid-template-columns: 1fr; }
+      .conditional-field { grid-column: auto; }
+      .detail-action-group { justify-content: stretch; }
+      .detail-action-group .btn { flex: 1 1 150px; }
+    }
+
+    /* Chuẩn hóa bố cục biểu mẫu hồ sơ */
+    .record-dialog form {
+      padding: 26px;
+    }
+
+    .record-dialog .modal-head {
+      align-items: flex-start;
+      margin-bottom: 22px;
+    }
+
+    .record-dialog .form-grid {
+      align-items: start;
+      column-gap: 18px;
+      row-gap: 18px;
+    }
+
+    .record-dialog .form-field {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      gap: 8px;
+      margin: 0;
+    }
+
+    .record-dialog .form-field > label {
+      display: block;
+      margin: 0;
+      color: #162936;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .record-dialog .form-field > input,
+    .record-dialog .form-field > select,
+    .record-dialog .form-field > textarea {
+      min-height: 48px;
+      margin: 0;
+      font-size: 15px;
+    }
+
+    .record-dialog .form-field > textarea {
+      min-height: 108px;
+      resize: vertical;
+    }
+
+    .record-dialog .field-hint {
+      display: block;
+      min-height: 18px;
+      color: #718390;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.45;
+    }
+
+    .record-dialog .full-span {
+      grid-column: 1 / -1;
+    }
+
+    .patient-form-grid .form-field,
+    .book-form-grid .form-field {
+      align-self: stretch;
+    }
+
+    .record-dialog .modal-actions {
+      padding-top: 18px;
+      border-top: 1px solid #e7efef;
+    }
+
+    .btn.danger-action {
+      border-color: #f3c2c2;
+      background: #fff1f1;
+      color: #b42318;
+    }
+
+    .btn.danger-action:hover:not(:disabled) {
+      border-color: #e89a9a;
+      background: #ffe5e5;
+    }
+
+    .btn.danger-primary {
+      border-color: #c93232;
+      background: #c93232;
+      color: #fff;
+    }
+
+    .btn.danger-primary:hover:not(:disabled) {
+      background: #a92323;
+    }
+
+    .delete-warning {
+      margin: 0 0 18px;
+      padding: 14px 15px;
+      border: 1px solid #f0c7c7;
+      border-radius: 14px;
+      background: #fff6f6;
+      color: #7f1d1d;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .delete-warning strong {
+      color: #991b1b;
+    }
+
+    .delete-confirm-record {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 0 0 18px;
+      padding: 12px 14px;
+      border: 1px solid #e1eaea;
+      border-radius: 13px;
+      background: #f8fbfb;
+    }
+
+    .delete-confirm-record span {
+      color: #687b86;
+      font-size: 12px;
+    }
+
+    .delete-confirm-record strong {
+      display: block;
+      margin-top: 3px;
+      color: #173a43;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .record-dialog form {
+        padding: 20px;
+      }
+
+      .record-dialog .form-grid {
+        row-gap: 15px;
+      }
+
+      .record-dialog .full-span {
+        grid-column: auto;
+      }
+
+      .record-dialog .field-hint {
+        min-height: auto;
+      }
+
+      .delete-confirm-record {
+        grid-template-columns: 1fr;
+      }
+    }
 </style>
 </head>
 
@@ -3682,12 +3872,12 @@ body {
         <div class="brand-icon">✚</div>
         <div>
           <strong>QUẢN LÝ HSBA</strong>
-          <small>Hồ sơ bệnh án</small>
+          <small>Hồ sơ bệnh án lưu trữ</small>
         </div>
       </div>
 
       <nav class="nav">
-        <button class="nav-btn active" data-view="patients">👥 Danh sách đối tượng</button>
+        <button class="nav-btn active" data-view="patients">👥 Danh sách hồ sơ</button>
         <button class="nav-btn" data-view="deaths">🗂️ Hồ sơ tử vong</button>
         <button class="nav-btn" data-view="dashboard">📈 Thống kê tổng quan</button>
 </nav>
@@ -3699,7 +3889,7 @@ body {
 
       <div class="sidebar-footer">
         <span>HSBA Trung tâm</span>
-        <small>Phiên bản 2026.07.13</small>
+        <small>Phiên bản 2026.07.15.2</small>
       </div>
     </aside>
 
@@ -3710,7 +3900,7 @@ body {
         <div class="topbar-left">
           <button id="menuBtn" class="icon-btn menu-btn" aria-label="Mở menu">☰</button>
           <div class="top-heading">
-            <div class="top-title">QUẢN LÝ HỒ SƠ BỆNH ÁN <span id="connectionBadge" class="firebase-test-badge">ĐANG KẾT NỐI</span></div>
+            <div class="top-title">HỒ SƠ BỆNH ÁN LƯU TRỮ <span id="connectionBadge" class="firebase-test-badge">ĐANG KẾT NỐI</span></div>
             <div class="top-subtitle">Số hóa, tra cứu và quản lý hồ sơ tập trung</div>
           </div>
         </div>
@@ -3731,10 +3921,10 @@ body {
         <section id="patientsView" class="view active">
           <div class="page-head">
             <div>
-              <h1>Danh sách đối tượng</h1>
-              <p>Tra cứu theo số hồ sơ, họ tên hoặc năm sinh</p>
+              <h1>Danh sách hồ sơ</h1>
+              <p>Tra cứu theo số hồ sơ, họ tên, năm sinh hoặc giới tính</p>
             </div>
-            <button id="addPatientBtn" class="btn primary">＋ Thêm đối tượng</button>
+            <button id="addPatientBtn" class="btn primary">＋ Thêm hồ sơ</button>
           </div>
 
           <section class="search-filter-panel">
@@ -3745,7 +3935,7 @@ body {
                   id="searchInput"
                   type="search"
                   autocomplete="off"
-                  placeholder="Nhập số hồ sơ, họ tên hoặc năm sinh...">
+                  placeholder="Nhập số hồ sơ, họ tên, năm sinh hoặc giới tính...">
               </label>
 
               <button id="searchBtn" class="btn search-submit-btn">
@@ -3775,19 +3965,19 @@ body {
                 <button
                   type="button"
                   class="status-filter-btn"
-                  data-status-filter="open">
-                  <span class="status-filter-icon open">📖</span>
-                  <span>Đang sử dụng</span>
-                  <b data-filter-count="open">0</b>
+                  data-status-filter="finished">
+                  <span class="status-filter-icon archive">✓</span>
+                  <span>Hết quyển</span>
+                  <b data-filter-count="finished">0</b>
                 </button>
 
                 <button
                   type="button"
                   class="status-filter-btn"
-                  data-status-filter="archive">
-                  <span class="status-filter-icon archive">🗄️</span>
-                  <span>Đã lưu kho</span>
-                  <b data-filter-count="archive">0</b>
+                  data-status-filter="returned">
+                  <span class="status-filter-icon open">⌂</span>
+                  <span>Hồi gia</span>
+                  <b data-filter-count="returned">0</b>
                 </button>
 
                 <button
@@ -3804,7 +3994,7 @@ body {
                   class="status-filter-btn"
                   data-status-filter="empty">
                   <span class="status-filter-icon no-book">＋</span>
-                  <span>Chưa có quyển</span>
+                  <span>Chưa lưu quyển</span>
                   <b data-filter-count="empty">0</b>
                 </button>
               </div>
@@ -3856,7 +4046,7 @@ body {
           <div class="page-head">
             <div>
               <h1>Hồ sơ tử vong</h1>
-              <p>Danh sách hồ sơ được phân loại và lưu trữ riêng</p>
+              <p>Tra cứu hồ sơ tử vong theo năm và nơi tử vong</p>
             </div>
           </div>
           <div id="deathsList"></div>
@@ -3881,13 +4071,7 @@ body {
           <h3>Lọc hồ sơ</h3>
           <p class="modal-subtitle">Chọn trạng thái hồ sơ cần hiển thị</p>
         </div>
-
-        <button
-          type="button"
-          class="btn close-dialog"
-          aria-label="Đóng">
-          ✕
-        </button>
+        <button type="button" class="btn close-dialog" aria-label="Đóng">✕</button>
       </div>
 
       <div class="advanced-filter-list">
@@ -3895,55 +4079,35 @@ body {
           <div class="advanced-filter-main">
             <input type="radio" name="advancedStatus" value="all" checked>
             <span class="advanced-filter-choice-icon all">◉</span>
-
-            <div>
-              <strong>Tất cả hồ sơ</strong>
-              <small>Hiển thị toàn bộ đối tượng đang quản lý</small>
-            </div>
+            <div><strong>Tất cả hồ sơ</strong><small>Hiển thị toàn bộ hồ sơ đang quản lý</small></div>
           </div>
-
           <b data-adv-count="all">0</b>
         </label>
 
         <label class="advanced-filter-item">
           <div class="advanced-filter-main">
-            <input type="radio" name="advancedStatus" value="open">
-            <span class="advanced-filter-choice-icon open">📖</span>
-
-            <div>
-              <strong>Đang sử dụng</strong>
-              <small>Đối tượng đang có quyển hồ sơ mở</small>
-            </div>
+            <input type="radio" name="advancedStatus" value="finished">
+            <span class="advanced-filter-choice-icon archive">✓</span>
+            <div><strong>Hết quyển</strong><small>Quyển hồ sơ đã kết thúc do hết quyển</small></div>
           </div>
-
-          <b data-adv-count="open">0</b>
+          <b data-adv-count="finished">0</b>
         </label>
 
         <label class="advanced-filter-item">
           <div class="advanced-filter-main">
-            <input type="radio" name="advancedStatus" value="archive">
-            <span class="advanced-filter-choice-icon archive">🗄️</span>
-
-            <div>
-              <strong>Đã lưu kho</strong>
-              <small>Quyển đã kết thúc và xác định vị trí lưu trữ</small>
-            </div>
+            <input type="radio" name="advancedStatus" value="returned">
+            <span class="advanced-filter-choice-icon open">⌂</span>
+            <div><strong>Đối tượng hồi gia</strong><small>Hồ sơ kết thúc do đối tượng hồi gia</small></div>
           </div>
-
-          <b data-adv-count="archive">0</b>
+          <b data-adv-count="returned">0</b>
         </label>
 
         <label class="advanced-filter-item">
           <div class="advanced-filter-main">
             <input type="radio" name="advancedStatus" value="death">
             <span class="advanced-filter-choice-icon death">●</span>
-
-            <div>
-              <strong>Hồ sơ tử vong</strong>
-              <small>Hồ sơ được phân loại và quản lý riêng</small>
-            </div>
+            <div><strong>Đối tượng tử vong</strong><small>Tra cứu theo ngày, năm và nơi tử vong</small></div>
           </div>
-
           <b data-adv-count="death">0</b>
         </label>
 
@@ -3951,141 +4115,179 @@ body {
           <div class="advanced-filter-main">
             <input type="radio" name="advancedStatus" value="empty">
             <span class="advanced-filter-choice-icon no-book">＋</span>
-
-            <div>
-              <strong>Chưa có quyển</strong>
-              <small>Đối tượng đã nhập nhưng chưa mở quyển</small>
-            </div>
+            <div><strong>Chưa lưu quyển</strong><small>Hồ sơ cá nhân đã tạo nhưng chưa nhập quyển lưu trữ</small></div>
           </div>
-
           <b data-adv-count="empty">0</b>
         </label>
       </div>
 
       <div class="modal-actions advanced-filter-actions">
-        <button
-          type="button"
-          id="resetAdvancedFilterBtn"
-          class="btn">
-          Đặt lại
-        </button>
-
-        <button
-          type="button"
-          id="applyAdvancedFilterBtn"
-          class="btn primary">
-          Áp dụng bộ lọc
-        </button>
+        <button type="button" id="resetAdvancedFilterBtn" class="btn">Đặt lại</button>
+        <button type="button" id="applyAdvancedFilterBtn" class="btn primary">Áp dụng bộ lọc</button>
       </div>
     </form>
   </dialog>
 
-  <dialog id="patientDialog">
+  <dialog id="patientDialog" class="record-dialog">
     <form id="patientForm">
       <div class="modal-head">
-        <h3>Thêm đối tượng</h3>
+        <div>
+          <h3 id="patientDialogTitle">Thêm hồ sơ</h3>
+          <p class="modal-subtitle">Nhập thông tin định danh của đối tượng</p>
+        </div>
         <button type="button" class="icon-btn close-dialog">✕</button>
       </div>
 
-      <label>Số hồ sơ
-        <input name="soHoSo" required maxlength="50">
-      </label>
+      <input type="hidden" name="mode" value="add">
 
-      <label>Họ và tên
-        <input name="hoTen" required maxlength="150">
-      </label>
+      <div class="form-grid two-columns patient-form-grid">
+        <div class="form-field">
+          <label for="patientSoHoSo">Số hồ sơ</label>
+          <input id="patientSoHoSo" name="soHoSo" required maxlength="50" autocomplete="off">
+          <small id="patientNumberHelp" class="field-hint">Số hồ sơ phải duy nhất trên hệ thống.</small>
+        </div>
 
-      <label>Năm sinh
-        <input name="namSinh" type="number" min="1900" max="2100" required>
-      </label>
+        <div class="form-field">
+          <label for="patientHoTen">Họ và tên</label>
+          <input id="patientHoTen" name="hoTen" required maxlength="150" autocomplete="off">
+          <small class="field-hint">Nhập đầy đủ họ và tên theo hồ sơ giấy.</small>
+        </div>
+
+        <div class="form-field">
+          <label for="patientNamSinh">Năm sinh</label>
+          <input id="patientNamSinh" name="namSinh" type="number" min="1900" max="2100" inputmode="numeric" required>
+          <small class="field-hint">Nhập năm sinh gồm 4 chữ số.</small>
+        </div>
+
+        <div class="form-field">
+          <label for="patientGioiTinh">Giới tính</label>
+          <select id="patientGioiTinh" name="gioiTinh" required>
+            <option value="">— Chọn giới tính —</option>
+            <option value="Nam">Nam</option>
+            <option value="Nữ">Nữ</option>
+          </select>
+          <small class="field-hint">Chọn giới tính của đối tượng.</small>
+        </div>
+      </div>
 
       <div class="modal-actions">
         <button type="button" class="btn close-dialog">Hủy</button>
-        <button type="submit" class="btn primary">Lưu đối tượng</button>
+        <button id="patientSubmitBtn" type="submit" class="btn primary">Lưu hồ sơ</button>
       </div>
     </form>
   </dialog>
 
-  <dialog id="bookDialog">
+  <dialog id="bookDialog" class="record-dialog large-dialog">
     <form id="bookForm">
       <div class="modal-head">
-        <h3>Mở quyển hồ sơ mới</h3>
+        <div>
+          <h3 id="bookDialogTitle">Lưu hồ sơ bệnh án</h3>
+          <p class="modal-subtitle">Nhập đầy đủ thông tin của một quyển hồ sơ lưu trữ</p>
+        </div>
         <button type="button" class="icon-btn close-dialog">✕</button>
       </div>
 
+      <input type="hidden" name="mode" value="add">
       <input type="hidden" name="soHoSo">
+      <input type="hidden" name="originalQuyenSo">
+      <input type="hidden" name="existingFileUrl">
 
-      <label id="bookNumberLabel">Quyển số
-        <input name="quyenSo" type="number" min="1" step="1" inputmode="numeric" required>
-        <small id="bookNumberHelp">Lần đầu số hóa, nhập đúng quyển đang sử dụng hoặc quyển tiếp theo của hồ sơ giấy.</small>
-      </label>
+      <div class="form-grid two-columns book-form-grid">
+        <div class="form-field">
+          <label for="bookQuyenSo">Quyển số</label>
+          <input id="bookQuyenSo" name="quyenSo" type="number" min="1" step="1" inputmode="numeric" required>
+          <small id="bookNumberHelp" class="field-hint">Hệ thống gợi ý số quyển tiếp theo; có thể điều chỉnh khi nhập dữ liệu lưu trữ cũ.</small>
+        </div>
 
-      <label>Ngày bắt đầu
-        <input name="ngayBatDau" type="date" required>
-      </label>
+        <div class="form-field">
+          <label for="bookTrangThai">Trạng thái kết thúc</label>
+          <select id="bookTrangThai" name="trangThai" required>
+            <option value="">— Chọn trạng thái —</option>
+            <option value="Hết quyển">Hết quyển</option>
+            <option value="Đối tượng hồi gia">Đối tượng hồi gia</option>
+            <option value="Đối tượng tử vong">Đối tượng tử vong</option>
+          </select>
+          <small class="field-hint">Chọn lý do kết thúc quyển hồ sơ.</small>
+        </div>
 
-      <label>Ghi chú
-        <textarea name="ghiChu" rows="3"></textarea>
-      </label>
+        <div class="form-field">
+          <label for="bookNgayBatDau">Ngày mở quyển</label>
+          <input id="bookNgayBatDau" name="ngayBatDau" type="date" required>
+          <small class="field-hint">Ngày bắt đầu sử dụng quyển hồ sơ.</small>
+        </div>
+
+        <div class="form-field">
+          <label for="bookNgayKetThuc">Ngày kết thúc</label>
+          <input id="bookNgayKetThuc" name="ngayKetThuc" type="date" required>
+          <small class="field-hint">Ngày chốt quyển và đưa vào lưu trữ.</small>
+        </div>
+
+        <div id="deathPlaceField" class="form-field full-span conditional-field hidden">
+          <label for="bookNoiTuVong">Nơi tử vong</label>
+          <input id="bookNoiTuVong" name="noiTuVong" type="text" maxlength="200" placeholder="Ví dụ: Trung tâm; Bệnh viện...">
+          <small class="field-hint">Bắt buộc khi chọn trạng thái Đối tượng tử vong.</small>
+        </div>
+
+        <div class="form-field full-span">
+          <label for="bookMaLuuTru">Mã/Vị trí lưu trữ</label>
+          <input id="bookMaLuuTru" name="maLuuTru" type="text" required maxlength="150" placeholder="Ví dụ: Kệ A - Ngăn 2; Kho 1 - Thùng 07">
+          <small class="field-hint">Bắt buộc nhập nơi đang lưu quyển hồ sơ giấy.</small>
+        </div>
+
+        <div class="form-field full-span">
+          <label for="bookFile">File scan hoặc hình ảnh</label>
+          <input id="bookFile" name="file" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,.heic,.heif,application/pdf,image/jpeg,image/png,image/webp,image/heic,image/heif">
+          <small class="field-hint">PDF, JPG, PNG, WEBP, HEIC/HEIF; tối đa 20 MB. Hồ sơ tử vong bắt buộc phải có file.</small>
+          <span id="existingFileNotice" class="existing-file-notice hidden"></span>
+        </div>
+
+        <div class="form-field full-span">
+          <label for="bookGhiChu">Ghi chú khác</label>
+          <textarea id="bookGhiChu" name="ghiChu" rows="3" maxlength="2000" placeholder="Nhập nội dung cần lưu ý (nếu có)"></textarea>
+          <small class="field-hint">Có thể ghi thêm thông tin cần theo dõi hoặc đối chiếu.</small>
+        </div>
+      </div>
 
       <div class="modal-actions">
         <button type="button" class="btn close-dialog">Hủy</button>
-        <button type="submit" class="btn primary">Mở quyển</button>
+        <button id="bookSubmitBtn" type="submit" class="btn primary">Lưu hồ sơ</button>
       </div>
     </form>
   </dialog>
 
-  <dialog id="closeBookDialog">
-    <form id="closeBookForm">
+  <dialog id="deletePatientDialog" class="record-dialog">
+    <form id="deletePatientForm">
       <div class="modal-head">
-        <h3>Kết thúc quyển hồ sơ</h3>
-        <button type="button" class="icon-btn close-dialog">✕</button>
+        <div>
+          <h3>Xóa hồ sơ đã nhập nhầm</h3>
+          <p class="modal-subtitle">Người có quyền cập nhật được thực hiện thao tác này</p>
+        </div>
+        <button type="button" class="icon-btn close-dialog" aria-label="Đóng">✕</button>
       </div>
 
       <input type="hidden" name="soHoSo">
-      <input type="hidden" name="quyenSo">
 
-      <label>Ngày kết thúc
-        <input name="ngayKetThuc" type="date" required>
-      </label>
+      <div class="delete-warning">
+        <strong>Lưu ý:</strong> Chỉ xóa được hồ sơ chưa có quyển lưu trữ. Hồ sơ đã có quyển chỉ được chỉnh sửa để bảo đảm an toàn dữ liệu.
+      </div>
 
-      <label>Trạng thái
-        <select name="trangThai" required>
-          <option value="">— Chọn trạng thái —</option>
-          <option value="Đã lưu kho">Đã lưu kho</option>
-          <option value="Đối tượng tử vong">Đối tượng tử vong</option>
-        </select>
-      </label>
+      <div class="delete-confirm-record">
+        <div><span>Số hồ sơ</span><strong id="deletePatientNumber">—</strong></div>
+        <div><span>Họ và tên</span><strong id="deletePatientName">—</strong></div>
+      </div>
 
-      <label>Mã/Vị trí lưu trữ
-        <input
-          name="maLuuTru"
-          type="text"
-          required
-          maxlength="150"
-          placeholder="Ví dụ: Thùng số 5; Kệ A - Ngăn 2; Kho 1 - Thùng 07">
-        <small>Bắt buộc nhập nơi lưu hồ sơ giấy sau khi đóng quyển.</small>
-      </label>
-
-      <label>File scan
-        <input
-          name="file"
-          type="file"
-          accept=".pdf,.jpg,.jpeg,.png,.webp,.heic,.heif,application/pdf,image/jpeg,image/png,image/webp,image/heic,image/heif">
-        <small>Chấp nhận PDF, JPG, PNG, WEBP, HEIC/HEIF; tối đa 20 MB. Hồ sơ tử vong bắt buộc phải có file scan.</small>
-      </label>
-
-      <label>Ghi chú
-        <textarea name="ghiChu" rows="3"></textarea>
-      </label>
+      <div class="form-field">
+        <label for="deleteReasonInput">Lý do xóa hồ sơ</label>
+        <textarea id="deleteReasonInput" name="lyDoXoa" rows="3" minlength="3" maxlength="500" autocomplete="off" placeholder="Ví dụ: Nhập nhầm người; trùng số hồ sơ; thông tin tạo sai..." required></textarea>
+        <small class="field-hint">Bắt buộc nhập lý do. Nội dung xóa sẽ được ghi nhận để phục vụ kiểm tra, đối chiếu.</small>
+      </div>
 
       <div class="modal-actions">
         <button type="button" class="btn close-dialog">Hủy</button>
-        <button type="submit" class="btn danger">Kết thúc quyển</button>
+        <button id="deletePatientSubmitBtn" type="submit" class="btn danger-primary">Xóa hồ sơ</button>
       </div>
     </form>
   </dialog>
-
 
   <section id="authGate" class="auth-gate">
     <div class="auth-card">
@@ -4093,7 +4295,7 @@ body {
 
       <div>
         <span class="auth-test-label">HỆ THỐNG CHÍNH THỨC</span>
-        <h2>Quản lý hồ sơ bệnh án</h2>
+        <h2>Hồ sơ bệnh án lưu trữ</h2>
         <p>Đăng nhập bằng tài khoản đã được quản trị viên cấp quyền.</p>
       </div>
 
@@ -4192,9 +4394,11 @@ body {
       MAX_UPLOAD_BYTES: 20 * 1024 * 1024,
 
       STATUS: {
-        DANG_KHAM: 'Đang khám',
-        DA_LUU_KHO: 'Đã lưu kho',
-        TU_VONG: 'Đối tượng tử vong'
+        HET_QUYEN: 'Hết quyển',
+        HOI_GIA: 'Đối tượng hồi gia',
+        TU_VONG: 'Đối tượng tử vong',
+        LEGACY_DANG_KHAM: 'Đang khám',
+        LEGACY_LUU_KHO: 'Đã lưu kho'
       }
     });
 
@@ -4263,14 +4467,14 @@ body {
         code.includes('PERMISSION_DENIED')
       ) {
         return new Error(
-          'Tài khoản Google hiện tại chưa được cấp quyền đọc/ghi Firebase. '
-          + 'Kiểm tra lại Realtime Database Rules và đúng email đăng nhập.'
+          'Tài khoản hiện tại chưa được cấp quyền thực hiện thao tác này. '
+          + 'Vui lòng liên hệ người quản trị hệ thống.'
         );
       }
 
       if (code === 'auth/unauthorized-domain') {
         return new Error(
-          'Tên miền GitHub chưa có trong Authentication → Settings → Authorized domains.'
+          'Địa chỉ truy cập hiện tại chưa được hệ thống cho phép. Vui lòng liên hệ người quản trị.'
         );
       }
 
@@ -4314,13 +4518,20 @@ body {
 
       if (code.startsWith('auth/')) {
         return new Error(
-          `Không đăng nhập được Firebase (${code}). Vui lòng thử lại.`
+          'Không đăng nhập được hệ thống. Vui lòng thử lại.'
         );
       }
 
       return error instanceof Error
         ? error
-        : new Error('Không thực hiện được yêu cầu Firebase.');
+        : new Error('Không thực hiện được yêu cầu. Vui lòng thử lại.');
+    }
+
+    function normalizeRecordStatus(value) {
+      const status = String(value || '').trim();
+      if (status === CONFIG.STATUS.LEGACY_LUU_KHO) return CONFIG.STATUS.HET_QUYEN;
+      if (status === CONFIG.STATUS.LEGACY_DANG_KHAM) return '';
+      return status;
     }
 
     function patientToUi(id, patient = {}) {
@@ -4329,10 +4540,14 @@ body {
         'SỐ HỒ SƠ': patient.soHoSo || '',
         'HỌ VÀ TÊN': patient.hoTen || '',
         'NĂM SINH': patient.namSinh || '',
+        'GIỚI TÍNH': patient.gioiTinh || '',
         'TỔNG SỐ QUYỂN': Number(patient.tongSoQuyen) || 0,
-        'QUYỂN ĐANG MỞ': patient.quyenDangMo || '',
-        'TRẠNG THÁI MỚI NHẤT': patient.trangThaiHienTai || '',
-        '_SỐ QUYỂN ĐÃ LƯU KHO': Number(patient.soQuyenDaLuuKho) || 0,
+        'QUYỂN ĐANG MỞ': '',
+        'TRẠNG THÁI MỚI NHẤT': normalizeRecordStatus(patient.trangThaiHienTai),
+        '_SỐ QUYỂN HẾT QUYỂN': Number(
+          patient.soQuyenHetQuyen ?? patient.soQuyenDaLuuKho
+        ) || 0,
+        '_SỐ QUYỂN HỒI GIA': Number(patient.soQuyenHoiGia) || 0,
         '_SỐ QUYỂN TỬ VONG': Number(patient.soQuyenTuVong) || 0,
         '_SỐ QUYỂN CÓ FILE': Number(patient.soQuyenCoFile) || 0,
         '_UPDATED_AT': Number(patient.updatedAt) || 0
@@ -4344,13 +4559,16 @@ body {
         'SỐ HỒ SƠ': patient.soHoSo || '',
         'HỌ VÀ TÊN': patient.hoTen || '',
         'NĂM SINH': patient.namSinh || '',
+        'GIỚI TÍNH': patient.gioiTinh || '',
         'FILE ĐÍNH KÈM': book.fileDinhKem || '',
         'QUYỂN SỐ': Number(book.quyenSo) || 0,
         'NGÀY BẮT ĐẦU': book.ngayBatDau || '',
         'NGÀY KẾT THÚC': book.ngayKetThuc || '',
-        'TRẠNG THÁI HIỆN TẠI': book.trangThai || '',
+        'TRẠNG THÁI HIỆN TẠI': normalizeRecordStatus(book.trangThai),
+        'NƠI TỬ VONG': book.noiTuVong || '',
         'MÃ SỐ LƯU TRỮ': book.maLuuTru || '',
-        'GHI CHÚ': book.ghiChu || ''
+        'GHI CHÚ': book.ghiChu || '',
+        '_LEGACY_STATUS': book.trangThai || ''
       };
     }
 
@@ -4359,8 +4577,11 @@ body {
         'SỐ HỒ SƠ': item.soHoSo || '',
         'HỌ VÀ TÊN': item.hoTen || '',
         'NĂM SINH': item.namSinh || '',
+        'GIỚI TÍNH': item.gioiTinh || '',
         'QUYỂN SỐ': Number(item.quyenSo) || 0,
         'NGÀY KẾT THÚC': item.ngayKetThuc || '',
+        'NĂM TỬ VONG': Number(item.namTuVong) || Number(String(item.ngayKetThuc || '').slice(0, 4)) || '',
+        'NƠI TỬ VONG': item.noiTuVong || '',
         'MÃ SỐ LƯU TRỮ': item.maLuuTru || '',
         'FILE ĐÍNH KÈM': item.fileDinhKem || ''
       };
@@ -4372,16 +4593,18 @@ body {
       const stats = patients.reduce((result, patient) => {
         result.tongDoiTuong += 1;
         result.tongQuyenHoSo += Number(patient.tongSoQuyen) || 0;
-        result.hoSoDangMo += patient.quyenDangMo ? 1 : 0;
-        result.hoSoDaLuuKho += Number(patient.soQuyenDaLuuKho) || 0;
+        result.hoSoHetQuyen += Number(
+          patient.soQuyenHetQuyen ?? patient.soQuyenDaLuuKho
+        ) || 0;
+        result.hoSoHoiGia += Number(patient.soQuyenHoiGia) || 0;
         result.hoSoTuVong += Number(patient.soQuyenTuVong) || 0;
         result.hoSoCoFile += Number(patient.soQuyenCoFile) || 0;
         return result;
       }, {
         tongDoiTuong: 0,
         tongQuyenHoSo: 0,
-        hoSoDangMo: 0,
-        hoSoDaLuuKho: 0,
+        hoSoHetQuyen: 0,
+        hoSoHoiGia: 0,
         hoSoTuVong: 0,
         hoSoCoFile: 0,
         hoSoChuaFile: 0
@@ -4414,12 +4637,7 @@ body {
     }
 
     async function readDeathObjects() {
-      const deathQuery = query(
-        ref(firebaseDatabase, 'hoSoTuVong'),
-        limitToLast(200)
-      );
-
-      const snapshot = await get(deathQuery);
+      const snapshot = await get(ref(firebaseDatabase, 'hoSoTuVong'));
       const value = snapshot.val() || {};
 
       return Object.values(value)
@@ -4446,7 +4664,7 @@ body {
           createdAt: serverTimestamp()
         });
       } catch (error) {
-        console.warn('Không ghi được nhật ký Firebase:', error);
+        console.warn('Không ghi được nhật ký hệ thống:', error);
       }
     }
 
@@ -4471,8 +4689,8 @@ body {
           }
 
           throw new Error(
-            'Không kết nối được dịch vụ file Google Drive. '
-            + 'Vui lòng kiểm tra mạng hoặc bản triển khai Apps Script.'
+            'Không kết nối được dịch vụ lưu trữ tệp. '
+            + 'Vui lòng kiểm tra kết nối mạng rồi thử lại.'
           );
         } finally {
           clearTimeout(timer);
@@ -4688,7 +4906,7 @@ body {
               return await this.getStats();
 
             default:
-              throw new Error(`Chưa hỗ trợ thao tác Firebase: ${action}`);
+              throw new Error('Chức năng này chưa được hỗ trợ.');
           }
         } catch (error) {
           throw firebaseError(error);
@@ -4703,25 +4921,28 @@ body {
             case 'themDoiTuong':
               return await this.addPatient(payload);
 
-            case 'themQuyenHoSo':
-              return await this.addBook(payload);
+            case 'capNhatDoiTuong':
+              return await this.updatePatient(payload);
 
-            case 'ketThucQuyenHoSo':
-              return await this.closeBook(payload, null);
+            case 'xoaDoiTuong':
+              return await this.deletePatient(payload);
+
+            case 'luuQuyenHoSo':
+              return await this.saveBook(payload, null);
 
             default:
-              throw new Error(`Chưa hỗ trợ thao tác Firebase: ${action}`);
+              throw new Error('Chức năng này chưa được hỗ trợ.');
           }
         } catch (error) {
           throw firebaseError(error);
         }
       }
 
-      async closeBookWithFile(payload, file) {
+      async saveBookWithFile(payload, file) {
         this.ensureSignedIn();
 
         try {
-          return await this.closeBook(payload, file || null);
+          return await this.saveBook(payload, file || null);
         } catch (error) {
           throw firebaseError(error);
         }
@@ -4752,7 +4973,7 @@ body {
         );
 
         if (!patientSnapshot.exists()) {
-          throw new Error('Không tìm thấy đối tượng trong Firebase.');
+          throw new Error('Không tìm thấy hồ sơ trên hệ thống.');
         }
 
         const patient = patientSnapshot.val() || {};
@@ -4799,12 +5020,11 @@ body {
         const soHoSo = String(payload.soHoSo || '').trim();
         const hoTen = String(payload.hoTen || '').trim().toUpperCase();
         const namSinh = Number(payload.namSinh);
+        const gioiTinh = String(payload.gioiTinh || '').trim();
         const currentYear = new Date().getFullYear();
 
-        if (!soHoSo || !hoTen || !Number.isInteger(namSinh)) {
-          throw new Error(
-            'Vui lòng nhập đầy đủ số hồ sơ, họ tên và năm sinh.'
-          );
+        if (!soHoSo || !hoTen || !Number.isInteger(namSinh) || !['Nam', 'Nữ'].includes(gioiTinh)) {
+          throw new Error('Vui lòng nhập đầy đủ số hồ sơ, họ tên, năm sinh và giới tính.');
         }
 
         if (namSinh < 1900 || namSinh > currentYear) {
@@ -4817,15 +5037,15 @@ body {
         const patient = {
           soHoSo,
           hoTen,
-          hoTenTimKiem: hoTen
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .toLowerCase(),
+          hoTenTimKiem: normalize(hoTen),
           namSinh,
+          gioiTinh,
           tongSoQuyen: 0,
           quyenDangMo: '',
           trangThaiHienTai: '',
           soQuyenDaLuuKho: 0,
+          soQuyenHetQuyen: 0,
+          soQuyenHoiGia: 0,
           soQuyenTuVong: 0,
           soQuyenCoFile: 0,
           createdAt: now,
@@ -4843,287 +5063,266 @@ body {
           throw new Error(`Số hồ sơ ${soHoSo} đã tồn tại.`);
         }
 
-        await writeLog('THÊM ĐỐI TƯỢNG', { soHoSo, hoTen, namSinh });
+        await writeLog('THÊM HỒ SƠ', { soHoSo, hoTen, namSinh, gioiTinh });
 
         return {
           success: true,
-          message: 'Đã thêm đối tượng.',
+          message: 'Đã lưu hồ sơ.',
           data: patientToUi(id, patient)
         };
       }
 
-      async addBook(payload) {
+      async updatePatient(payload) {
         const soHoSo = String(payload.soHoSo || '').trim();
-        const quyenSo = Number(payload.quyenSo);
-        const ngayBatDau = String(payload.ngayBatDau || '').trim();
-        const ghiChu = String(payload.ghiChu || '').trim();
+        const hoTen = String(payload.hoTen || '').trim().toUpperCase();
+        const namSinh = Number(payload.namSinh);
+        const gioiTinh = String(payload.gioiTinh || '').trim();
+        const currentYear = new Date().getFullYear();
 
-        if (
-          !soHoSo ||
-          !Number.isInteger(quyenSo) ||
-          quyenSo < 1 ||
-          !/^\d{4}-\d{2}-\d{2}$/.test(ngayBatDau)
-        ) {
-          throw new Error(
-            'Vui lòng nhập đúng quyển số và ngày bắt đầu.'
-          );
+        if (!soHoSo || !hoTen || !Number.isInteger(namSinh) || !['Nam', 'Nữ'].includes(gioiTinh)) {
+          throw new Error('Vui lòng nhập đầy đủ thông tin hồ sơ.');
+        }
+
+        if (namSinh < 1900 || namSinh > currentYear) {
+          throw new Error('Năm sinh không hợp lệ.');
         }
 
         const id = firebaseKey(soHoSo);
-        const lockToken = await this.acquirePatientLock(id, 'MO_QUYEN');
+        const lockToken = await this.acquirePatientLock(id, 'SUA_THONG_TIN');
 
         try {
-          const patientReference = ref(this.database, `doiTuong/${id}`);
-          const patientSnapshot = await get(patientReference);
+          const patientSnapshot = await get(ref(this.database, `doiTuong/${id}`));
+          if (!patientSnapshot.exists()) throw new Error('Không tìm thấy hồ sơ.');
 
-          if (!patientSnapshot.exists()) {
-            throw new Error('Không tìm thấy đối tượng.');
-          }
-
-          const patient = patientSnapshot.val() || {};
-
-          if (patient.quyenDangMo !== '' && patient.quyenDangMo != null) {
-            throw new Error(
-              `Quyển ${patient.quyenDangMo} chưa kết thúc.`
-            );
-          }
-
-          if (patient.trangThaiHienTai === CONFIG.STATUS.TU_VONG) {
-            throw new Error(
-              'Hồ sơ tử vong không được mở thêm quyển mới.'
-            );
-          }
-
-          const booksSnapshot = await get(
-            ref(this.database, `quyenHoSo/${id}`)
-          );
-          const currentBooks = Object.values(booksSnapshot.val() || {});
-          const currentTotal = currentBooks.length;
-
-          if (currentTotal > 0) {
-            const expectedBook =
-              Math.max(
-                ...currentBooks.map(book => Number(book.quyenSo) || 0)
-              ) + 1;
-
-            if (quyenSo !== expectedBook) {
-              throw new Error(
-                `Quyển tiếp theo phải là quyển ${expectedBook}.`
-              );
-            }
-          }
-
-          const bookPath = `quyenHoSo/${id}/${bookKey(quyenSo)}`;
-
-          if ((booksSnapshot.val() || {})[bookKey(quyenSo)]) {
-            throw new Error(`Quyển ${quyenSo} đã tồn tại.`);
-          }
-
-          const book = {
-            soHoSo,
-            quyenSo,
-            ngayBatDau,
-            ngayKetThuc: '',
-            trangThai: CONFIG.STATUS.DANG_KHAM,
-            maLuuTru: '',
-            fileDinhKem: '',
-            ghiChu,
-            createdAt: serverTimestamp(),
-            updatedAt: serverTimestamp(),
-            createdBy: this.auth.currentUser.email || ''
-          };
-
+          const deathSnapshot = await get(ref(this.database, `hoSoTuVong/${id}`));
           const logKey = push(ref(this.database, 'nhatKy')).key;
           const updates = {
-            [bookPath]: book,
-            [`doiTuong/${id}/tongSoQuyen`]: currentTotal + 1,
-            [`doiTuong/${id}/quyenDangMo`]: quyenSo,
-            [`doiTuong/${id}/trangThaiHienTai`]: CONFIG.STATUS.DANG_KHAM,
+            [`doiTuong/${id}/hoTen`]: hoTen,
+            [`doiTuong/${id}/hoTenTimKiem`]: normalize(hoTen),
+            [`doiTuong/${id}/namSinh`]: namSinh,
+            [`doiTuong/${id}/gioiTinh`]: gioiTinh,
             [`doiTuong/${id}/updatedAt`]: serverTimestamp(),
-            [`nhatKy/${logKey}`]: this.makeLog('MỞ QUYỂN HỒ SƠ', {
-              soHoSo,
-              quyenSo,
-              ngayBatDau
+            [`nhatKy/${logKey}`]: this.makeLog('CHỈNH SỬA THÔNG TIN HỒ SƠ', {
+              soHoSo, hoTen, namSinh, gioiTinh
             }),
             [`khoaThaoTac/${id}`]: null
           };
 
-          await update(ref(this.database), updates);
+          if (deathSnapshot.exists()) {
+            updates[`hoSoTuVong/${id}/hoTen`] = hoTen;
+            updates[`hoSoTuVong/${id}/namSinh`] = namSinh;
+            updates[`hoSoTuVong/${id}/gioiTinh`] = gioiTinh;
+            updates[`hoSoTuVong/${id}/updatedAt`] = serverTimestamp();
+          }
 
-          return {
-            success: true,
-            message: `Đã mở quyển ${quyenSo}.`,
-            data: bookToUi(
-              {
-                soHoSo,
-                hoTen: patient.hoTen,
-                namSinh: patient.namSinh
-              },
-              {
-                ...book,
-                createdAt: Date.now(),
-                updatedAt: Date.now()
-              }
-            )
-          };
+          await update(ref(this.database), updates);
+          const updated = { ...patientSnapshot.val(), hoTen, namSinh, gioiTinh, updatedAt: Date.now() };
+          return { success: true, message: 'Đã cập nhật thông tin hồ sơ.', data: patientToUi(id, updated) };
         } catch (error) {
           await this.releasePatientLock(id, lockToken);
           throw error;
         }
       }
 
-      async closeBook(payload, file) {
+      async deletePatient(payload) {
         const soHoSo = String(payload.soHoSo || '').trim();
-        const quyenSo = Number(payload.quyenSo);
-        const ngayKetThuc = String(payload.ngayKetThuc || '').trim();
-        const trangThai = String(payload.trangThai || '').trim();
-        const maLuuTru = String(payload.maLuuTru || '').trim();
-        const ghiChu = String(payload.ghiChu || '').trim();
+        const lyDoXoa = String(payload.lyDoXoa || '').trim();
 
-        if (
-          !soHoSo ||
-          !Number.isInteger(quyenSo) ||
-          !/^\d{4}-\d{2}-\d{2}$/.test(ngayKetThuc) ||
-          ![CONFIG.STATUS.DA_LUU_KHO, CONFIG.STATUS.TU_VONG]
-            .includes(trangThai) ||
-          !maLuuTru
-        ) {
-          throw new Error(
-            'Vui lòng nhập đầy đủ ngày kết thúc, trạng thái '
-            + 'và vị trí lưu trữ.'
-          );
+        if (!['admin', 'editor'].includes(state.currentRole)) {
+          throw new Error('Tài khoản chỉ xem không được phép xóa hồ sơ.');
         }
 
-        if (trangThai === CONFIG.STATUS.TU_VONG && !file) {
-          throw new Error(
-            'Hồ sơ tử vong bắt buộc phải có file scan.'
-          );
+        if (!soHoSo) {
+          throw new Error('Không xác định được hồ sơ cần xóa.');
+        }
+
+        if (lyDoXoa.length < 3) {
+          throw new Error('Vui lòng nhập lý do xóa hồ sơ.');
         }
 
         const id = firebaseKey(soHoSo);
-        const lockToken = await this.acquirePatientLock(id, 'KET_THUC_QUYEN');
+        const [patientSnapshot, booksSnapshot] = await Promise.all([
+          get(ref(this.database, `doiTuong/${id}`)),
+          get(ref(this.database, `quyenHoSo/${id}`))
+        ]);
+
+        if (!patientSnapshot.exists()) {
+          throw new Error('Hồ sơ không còn tồn tại trên hệ thống.');
+        }
+
+        const bookMap = booksSnapshot.val() || {};
+        const bookCount = Object.values(bookMap).filter(Boolean).length;
+
+        if (bookCount > 0) {
+          throw new Error('Không thể xóa vì hồ sơ đã có quyển lưu trữ. Hãy chỉnh sửa thông tin thay vì xóa.');
+        }
+
+        const patient = patientSnapshot.val() || {};
+        const logKey = push(ref(this.database, 'nhatKy')).key;
+        const updates = {
+          [`doiTuong/${id}`]: null,
+          [`nhatKy/${logKey}`]: this.makeLog('XÓA HỒ SƠ NHẬP NHẦM', {
+            soHoSo,
+            hoTen: patient.hoTen || '',
+            namSinh: patient.namSinh || '',
+            gioiTinh: patient.gioiTinh || '',
+            lyDoXoa
+          })
+        };
+
+        await update(ref(this.database), updates);
+
+        return {
+          success: true,
+          message: `Đã xóa hồ sơ ${soHoSo}.`
+        };
+      }
+
+      summarizeBooks(bookMap) {
+        const books = Object.values(bookMap || {}).filter(Boolean);
+        const normalized = books.map(book => ({ ...book, normalizedStatus: normalizeRecordStatus(book.trangThai) }));
+        const latest = [...normalized].sort((a, b) => {
+          const dateDiff = String(b.ngayKetThuc || b.ngayBatDau || '').localeCompare(String(a.ngayKetThuc || a.ngayBatDau || ''));
+          if (dateDiff) return dateDiff;
+          return Number(b.quyenSo || 0) - Number(a.quyenSo || 0);
+        })[0] || null;
+
+        return {
+          total: books.length,
+          latestStatus: latest?.normalizedStatus || '',
+          finished: normalized.filter(book => book.normalizedStatus === CONFIG.STATUS.HET_QUYEN).length,
+          returned: normalized.filter(book => book.normalizedStatus === CONFIG.STATUS.HOI_GIA).length,
+          deaths: normalized.filter(book => book.normalizedStatus === CONFIG.STATUS.TU_VONG).length,
+          files: normalized.filter(book => String(book.fileDinhKem || '').trim()).length,
+          deathBook: normalized
+            .filter(book => book.normalizedStatus === CONFIG.STATUS.TU_VONG)
+            .sort((a, b) => Number(b.quyenSo || 0) - Number(a.quyenSo || 0))[0] || null
+        };
+      }
+
+      async saveBook(payload, file) {
+        const soHoSo = String(payload.soHoSo || '').trim();
+        const mode = String(payload.mode || 'add');
+        const quyenSo = Number(payload.quyenSo);
+        const originalQuyenSo = Number(payload.originalQuyenSo || quyenSo);
+        const ngayBatDau = String(payload.ngayBatDau || '').trim();
+        const ngayKetThuc = String(payload.ngayKetThuc || '').trim();
+        const trangThai = normalizeRecordStatus(payload.trangThai);
+        const noiTuVong = String(payload.noiTuVong || '').trim();
+        const maLuuTru = String(payload.maLuuTru || '').trim();
+        const ghiChu = String(payload.ghiChu || '').trim();
+        const existingFileUrl = String(payload.existingFileUrl || '').trim();
+
+        if (!soHoSo || !Number.isInteger(quyenSo) || quyenSo < 1) {
+          throw new Error('Vui lòng nhập đúng số hồ sơ và quyển số.');
+        }
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(ngayBatDau) || !/^\d{4}-\d{2}-\d{2}$/.test(ngayKetThuc)) {
+          throw new Error('Vui lòng nhập đầy đủ ngày mở quyển và ngày kết thúc.');
+        }
+        if (ngayKetThuc < ngayBatDau) {
+          throw new Error('Ngày kết thúc không được trước ngày mở quyển.');
+        }
+        if (![CONFIG.STATUS.HET_QUYEN, CONFIG.STATUS.HOI_GIA, CONFIG.STATUS.TU_VONG].includes(trangThai)) {
+          throw new Error('Vui lòng chọn đúng trạng thái kết thúc hồ sơ.');
+        }
+        if (!maLuuTru) throw new Error('Vui lòng nhập mã hoặc vị trí lưu trữ.');
+        if (trangThai === CONFIG.STATUS.TU_VONG && !noiTuVong) {
+          throw new Error('Vui lòng nhập nơi tử vong.');
+        }
+        if (trangThai === CONFIG.STATUS.TU_VONG && !file && !existingFileUrl) {
+          throw new Error('Hồ sơ tử vong bắt buộc phải có file scan hoặc hình ảnh.');
+        }
+
+        const id = firebaseKey(soHoSo);
+        const lockToken = await this.acquirePatientLock(id, mode === 'edit' ? 'SUA_QUYEN' : 'LUU_QUYEN');
         let uploadedFileId = '';
 
         try {
-          const patientReference = ref(this.database, `doiTuong/${id}`);
-          const patientSnapshot = await get(patientReference);
+          const [patientSnapshot, booksSnapshot] = await Promise.all([
+            get(ref(this.database, `doiTuong/${id}`)),
+            get(ref(this.database, `quyenHoSo/${id}`))
+          ]);
 
-          if (!patientSnapshot.exists()) {
-            throw new Error('Không tìm thấy đối tượng.');
-          }
-
+          if (!patientSnapshot.exists()) throw new Error('Không tìm thấy hồ sơ.');
           const patient = patientSnapshot.val() || {};
+          const bookMap = booksSnapshot.val() || {};
+          const targetKey = bookKey(quyenSo);
+          const originalKey = bookKey(originalQuyenSo);
+          const previousBook = mode === 'edit' ? bookMap[originalKey] : null;
 
-          if (Number(patient.quyenDangMo) !== quyenSo) {
-            throw new Error(
-              'Quyển được chọn không phải quyển đang mở.'
-            );
+          if (mode === 'edit' && !previousBook) throw new Error('Không tìm thấy quyển hồ sơ cần chỉnh sửa.');
+          if (mode !== 'edit' && bookMap[targetKey]) throw new Error(`Quyển ${quyenSo} đã tồn tại.`);
+          if (mode === 'edit' && quyenSo !== originalQuyenSo && bookMap[targetKey]) {
+            throw new Error(`Quyển ${quyenSo} đã tồn tại.`);
           }
 
-          const bookReference = ref(
-            this.database,
-            `quyenHoSo/${id}/${bookKey(quyenSo)}`
-          );
-          const bookSnapshot = await get(bookReference);
-
-          if (!bookSnapshot.exists()) {
-            throw new Error('Không tìm thấy quyển hồ sơ.');
-          }
-
-          const previousBook = bookSnapshot.val() || {};
-
-          if (previousBook.ngayKetThuc) {
-            throw new Error('Quyển hồ sơ này đã được kết thúc.');
-          }
-
-          if (
-            previousBook.ngayBatDau &&
-            ngayKetThuc < previousBook.ngayBatDau
-          ) {
-            throw new Error(
-              'Ngày kết thúc không được trước ngày bắt đầu.'
-            );
-          }
-
-          let fileDinhKem = '';
-
+          let fileDinhKem = previousBook?.fileDinhKem || existingFileUrl || '';
           if (file) {
-            const upload = await this.driveUploader.upload(
-              soHoSo,
-              quyenSo,
-              file
-            );
-
+            const upload = await this.driveUploader.upload(soHoSo, quyenSo, file);
             uploadedFileId = upload.data?.fileId || '';
             fileDinhKem = upload.data?.fileUrl || '';
-
-            if (!fileDinhKem) {
-              throw new Error('Dịch vụ file không trả về đường dẫn Google Drive.');
-            }
+            if (!fileDinhKem) throw new Error('Không nhận được đường dẫn tệp sau khi tải lên.');
           }
 
-          const closedBook = {
-            ...previousBook,
+          const nowEmail = this.auth.currentUser.email || '';
+          const savedBook = {
+            ...(previousBook || {}),
+            soHoSo,
+            quyenSo,
+            ngayBatDau,
             ngayKetThuc,
             trangThai,
+            noiTuVong: trangThai === CONFIG.STATUS.TU_VONG ? noiTuVong : '',
             maLuuTru,
             fileDinhKem,
             ghiChu,
+            createdAt: previousBook?.createdAt || serverTimestamp(),
             updatedAt: serverTimestamp(),
-            closedBy: this.auth.currentUser.email || ''
+            createdBy: previousBook?.createdBy || nowEmail,
+            updatedBy: nowEmail
           };
 
-          const patientUpdate = {
-            quyenDangMo: '',
-            trangThaiHienTai: trangThai,
-            updatedAt: serverTimestamp(),
-            soQuyenDaLuuKho:
-              Number(patient.soQuyenDaLuuKho) || 0,
-            soQuyenTuVong:
-              Number(patient.soQuyenTuVong) || 0,
-            soQuyenCoFile:
-              Number(patient.soQuyenCoFile) || 0
-          };
-
-          if (trangThai === CONFIG.STATUS.DA_LUU_KHO) {
-            patientUpdate.soQuyenDaLuuKho += 1;
-          }
-
-          if (trangThai === CONFIG.STATUS.TU_VONG) {
-            patientUpdate.soQuyenTuVong += 1;
-          }
-
-          if (fileDinhKem) {
-            patientUpdate.soQuyenCoFile += 1;
-          }
-
+          const nextBookMap = { ...bookMap };
+          if (mode === 'edit' && originalKey !== targetKey) delete nextBookMap[originalKey];
+          nextBookMap[targetKey] = savedBook;
+          const summary = this.summarizeBooks(nextBookMap);
           const logKey = push(ref(this.database, 'nhatKy')).key;
+
           const updates = {
-            [`quyenHoSo/${id}/${bookKey(quyenSo)}`]: closedBook,
-            [`doiTuong/${id}/quyenDangMo`]: patientUpdate.quyenDangMo,
-            [`doiTuong/${id}/trangThaiHienTai`]: patientUpdate.trangThaiHienTai,
-            [`doiTuong/${id}/updatedAt`]: patientUpdate.updatedAt,
-            [`doiTuong/${id}/soQuyenDaLuuKho`]: patientUpdate.soQuyenDaLuuKho,
-            [`doiTuong/${id}/soQuyenTuVong`]: patientUpdate.soQuyenTuVong,
-            [`doiTuong/${id}/soQuyenCoFile`]: patientUpdate.soQuyenCoFile,
-            [`nhatKy/${logKey}`]: this.makeLog('KẾT THÚC QUYỂN HỒ SƠ', {
-              soHoSo,
-              quyenSo,
-              trangThai,
-              maLuuTru
-            }),
+            [`quyenHoSo/${id}/${targetKey}`]: savedBook,
+            [`doiTuong/${id}/tongSoQuyen`]: summary.total,
+            [`doiTuong/${id}/quyenDangMo`]: '',
+            [`doiTuong/${id}/trangThaiHienTai`]: summary.latestStatus,
+            [`doiTuong/${id}/soQuyenDaLuuKho`]: summary.finished,
+            [`doiTuong/${id}/soQuyenHetQuyen`]: summary.finished,
+            [`doiTuong/${id}/soQuyenHoiGia`]: summary.returned,
+            [`doiTuong/${id}/soQuyenTuVong`]: summary.deaths,
+            [`doiTuong/${id}/soQuyenCoFile`]: summary.files,
+            [`doiTuong/${id}/updatedAt`]: serverTimestamp(),
+            [`nhatKy/${logKey}`]: this.makeLog(
+              mode === 'edit' ? 'CHỈNH SỬA QUYỂN HỒ SƠ' : 'LƯU QUYỂN HỒ SƠ',
+              { soHoSo, quyenSo, ngayBatDau, ngayKetThuc, trangThai, noiTuVong, maLuuTru }
+            ),
             [`khoaThaoTac/${id}`]: null
           };
 
-          if (trangThai === CONFIG.STATUS.TU_VONG) {
+          if (mode === 'edit' && originalKey !== targetKey) {
+            updates[`quyenHoSo/${id}/${originalKey}`] = null;
+          }
+
+          if (summary.deathBook) {
+            const deathBook = summary.deathBook;
             updates[`hoSoTuVong/${id}`] = {
               soHoSo,
               hoTen: patient.hoTen || '',
               namSinh: patient.namSinh || '',
-              quyenSo,
-              ngayKetThuc,
-              maLuuTru,
-              fileDinhKem,
+              gioiTinh: patient.gioiTinh || '',
+              quyenSo: Number(deathBook.quyenSo) || 0,
+              ngayKetThuc: deathBook.ngayKetThuc || '',
+              namTuVong: Number(String(deathBook.ngayKetThuc || '').slice(0, 4)) || 0,
+              noiTuVong: deathBook.noiTuVong || '',
+              maLuuTru: deathBook.maLuuTru || '',
+              fileDinhKem: deathBook.fileDinhKem || '',
               updatedAt: serverTimestamp()
             };
           } else {
@@ -5131,22 +5330,14 @@ body {
           }
 
           await update(ref(this.database), updates);
-
           return {
             success: true,
-            message: `Đã kết thúc quyển ${quyenSo}.`,
-            data: bookToUi(patient, {
-              ...closedBook,
-              updatedAt: Date.now()
-            })
+            message: mode === 'edit' ? `Đã cập nhật quyển ${quyenSo}.` : `Đã lưu quyển ${quyenSo}.`,
+            data: bookToUi(patient, { ...savedBook, updatedAt: Date.now() })
           };
         } catch (error) {
           await this.releasePatientLock(id, lockToken);
-
-          if (uploadedFileId) {
-            await this.driveUploader.removeTemporary(uploadedFileId);
-          }
-
+          if (uploadedFileId) await this.driveUploader.removeTemporary(uploadedFileId);
           throw error;
         }
       }
@@ -5171,6 +5362,7 @@ body {
       currentBooks: [],
       allPatients: [],
       activeStatusFilter: 'all',
+      deathYearFilter: 'all',
       currentRole: ''
     };
 
@@ -5188,7 +5380,7 @@ body {
         $('#authGate').classList.add('hidden');
         $('#patientsEmpty').classList.remove('hidden');
         $('#patientsEmpty').textContent =
-          'Chỉ kết nối Firebase khi chạy trên HTTPS hoặc máy chủ cục bộ.';
+          'Hệ thống chỉ hoạt động khi mở bằng kết nối HTTPS.';
         renderDeaths();
         renderStats();
         return;
@@ -5278,6 +5470,10 @@ body {
     }
 
     function canEditRecords() {
+      return state.currentRole === 'admin' || state.currentRole === 'editor';
+    }
+
+    function canDeleteRecords() {
       return state.currentRole === 'admin' || state.currentRole === 'editor';
     }
 
@@ -5371,7 +5567,7 @@ body {
       $('#authGate').classList.add('hidden');
       $('#authUserBar').classList.remove('hidden');
       $('#authUserEmail').textContent =
-        `${user.email || user.displayName || 'Firebase'} · ${roleLabel(role)}`;
+        `${user.email || user.displayName || 'Đã đăng nhập'} · ${roleLabel(role)}`;
       hideAuthError();
     }
 
@@ -5390,14 +5586,10 @@ body {
     function bindEvents() {
       $('#menuBtn').addEventListener('click', openSidebar);
       $('#overlay').addEventListener('click', closeSidebar);
-      $('#addPatientBtn').addEventListener('click', () => {
-        if (!requireEditPermission()) return;
-        $('#patientDialog').showModal();
-      });
+      $('#addPatientBtn').addEventListener('click', () => openPatientDialog('add'));
       $('#backBtn').addEventListener('click', () => switchView('patients'));
 
       $('#searchBtn').addEventListener('click', searchPatients);
-
       $('#searchInput').addEventListener('input', debounce(searchPatients, 160));
       $('#searchInput').addEventListener('keydown', event => {
         if (event.key === 'Enter') searchPatients();
@@ -5413,10 +5605,7 @@ body {
       const openFilterDialog = () => {
         const dialog = $('#advancedFilterDialog');
         const selectedValue = state.activeStatusFilter || 'all';
-        const selectedRadio = dialog.querySelector(
-          `input[name="advancedStatus"][value="${selectedValue}"]`
-        );
-
+        const selectedRadio = dialog.querySelector(`input[name="advancedStatus"][value="${selectedValue}"]`);
         if (selectedRadio) selectedRadio.checked = true;
         dialog.showModal();
       };
@@ -5425,10 +5614,7 @@ body {
       $('#mobileFilterTrigger').addEventListener('click', openFilterDialog);
 
       $('#applyAdvancedFilterBtn').addEventListener('click', () => {
-        const selected = document.querySelector(
-          'input[name="advancedStatus"]:checked'
-        );
-
+        const selected = document.querySelector('input[name="advancedStatus"]:checked');
         state.activeStatusFilter = selected ? selected.value : 'all';
         $('#advancedFilterDialog').close();
         searchPatients();
@@ -5437,55 +5623,39 @@ body {
       $('#resetAdvancedFilterBtn').addEventListener('click', () => {
         $('#searchInput').value = '';
         state.activeStatusFilter = 'all';
-
-        const defaultRadio = document.querySelector(
-          'input[name="advancedStatus"][value="all"]'
-        );
-
+        const defaultRadio = document.querySelector('input[name="advancedStatus"][value="all"]');
         if (defaultRadio) defaultRadio.checked = true;
-
         $('#advancedFilterDialog').close();
         searchPatients();
-        $('#searchInput').focus();
       });
 
       $('#clearFiltersBtn').addEventListener('click', () => {
         $('#searchInput').value = '';
         state.activeStatusFilter = 'all';
-
-        const defaultRadio = document.querySelector(
-          'input[name="advancedStatus"][value="all"]'
-        );
-
-        if (defaultRadio) defaultRadio.checked = true;
-
         searchPatients();
-        $('#searchInput').focus();
       });
 
       $$('.nav-btn').forEach(button => {
         button.addEventListener('click', () => {
-          const view = button.dataset.view;
-          switchView(view);
+          switchView(button.dataset.view);
           closeSidebar();
         });
       });
 
       $$('.close-dialog').forEach(button => {
-        button.addEventListener('click', () => {
-          button.closest('dialog').close();
-        });
+        button.addEventListener('click', () => button.closest('dialog').close());
       });
 
+      $('#bookForm [name="trangThai"]').addEventListener('change', updateDeathPlaceVisibility);
       $('#patientForm').addEventListener('submit', submitPatient);
       $('#bookForm').addEventListener('submit', submitBook);
-      $('#closeBookForm').addEventListener('submit', submitCloseBook);
+      $('#deletePatientForm').addEventListener('submit', submitDeletePatient);
     }
 
     function setToday() {
       const today = new Date().toISOString().slice(0, 10);
       $('#bookForm [name="ngayBatDau"]').value = today;
-      $('#closeBookForm [name="ngayKetThuc"]').value = today;
+      $('#bookForm [name="ngayKetThuc"]').value = today;
     }
 
     function searchPatients() {
@@ -5494,7 +5664,7 @@ body {
 
       state.patients = state.allPatients.filter(patient => {
         const searchableText = normalize(
-          `${patient['SỐ HỒ SƠ']} ${patient['HỌ VÀ TÊN']} ${patient['NĂM SINH']}`
+          `${patient['SỐ HỒ SƠ']} ${patient['HỌ VÀ TÊN']} ${patient['NĂM SINH']} ${patient['GIỚI TÍNH']}`
         );
 
         const matchesKeyword =
@@ -5512,72 +5682,42 @@ body {
     }
 
     function getPatientStatusGroup(patient) {
-      const latestStatus = patient['TRẠNG THÁI MỚI NHẤT'] || '';
+      const latestStatus = normalizeRecordStatus(patient['TRẠNG THÁI MỚI NHẤT']);
       const totalBooks = Number(patient['TỔNG SỐ QUYỂN']) || 0;
-
       if (latestStatus === CONFIG.STATUS.TU_VONG) return 'death';
-      if (patient['QUYỂN ĐANG MỞ']) return 'open';
-      if (totalBooks > 0) return 'archive';
-
-      return 'empty';
+      if (latestStatus === CONFIG.STATUS.HOI_GIA) return 'returned';
+      if (latestStatus === CONFIG.STATUS.HET_QUYEN) return 'finished';
+      return totalBooks > 0 ? 'finished' : 'empty';
     }
 
     function renderFilterControls() {
-      const counts = {
-        all: state.allPatients.length,
-        open: 0,
-        archive: 0,
-        death: 0,
-        empty: 0
-      };
-
+      const counts = { all: state.allPatients.length, finished: 0, returned: 0, death: 0, empty: 0 };
       state.allPatients.forEach(patient => {
         const group = getPatientStatusGroup(patient);
         counts[group] = (counts[group] || 0) + 1;
       });
 
       $$('[data-filter-count]').forEach(element => {
-        const key = element.dataset.filterCount;
-        element.textContent = counts[key] || 0;
+        element.textContent = counts[element.dataset.filterCount] || 0;
       });
-
       $$('[data-adv-count]').forEach(element => {
-        const key = element.dataset.advCount;
-        element.textContent = counts[key] || 0;
+        element.textContent = counts[element.dataset.advCount] || 0;
       });
-
       $$('[data-status-filter]').forEach(button => {
-        button.classList.toggle(
-          'active',
-          button.dataset.statusFilter === state.activeStatusFilter
-        );
+        button.classList.toggle('active', button.dataset.statusFilter === state.activeStatusFilter);
       });
 
       const filterNames = {
         all: 'Tất cả hồ sơ',
-        open: 'Đang sử dụng',
-        archive: 'Đã lưu kho',
-        death: 'Hồ sơ tử vong',
-        empty: 'Chưa có quyển'
+        finished: 'Hết quyển',
+        returned: 'Đối tượng hồi gia',
+        death: 'Đối tượng tử vong',
+        empty: 'Chưa lưu quyển'
       };
-
       const activeFilter = state.activeStatusFilter || 'all';
-      const mobileFilterLabel = $('#mobileFilterLabel');
-      const mobileFilterCount = $('#mobileFilterCount');
-
-      if (mobileFilterLabel) {
-        mobileFilterLabel.textContent =
-          filterNames[activeFilter] || filterNames.all;
-      }
-
-      if (mobileFilterCount) {
-        mobileFilterCount.textContent = counts[activeFilter] || 0;
-      }
-
-      const selectedRadio = document.querySelector(
-        `input[name="advancedStatus"][value="${activeFilter}"]`
-      );
-
+      if ($('#mobileFilterLabel')) $('#mobileFilterLabel').textContent = filterNames[activeFilter] || filterNames.all;
+      if ($('#mobileFilterCount')) $('#mobileFilterCount').textContent = counts[activeFilter] || 0;
+      const selectedRadio = document.querySelector(`input[name="advancedStatus"][value="${activeFilter}"]`);
       if (selectedRadio) selectedRadio.checked = true;
     }
 
@@ -5591,15 +5731,15 @@ body {
     }
 
     function renderPatients() {
-      const openCount = state.patients.filter(x => x['QUYỂN ĐANG MỞ']).length;
-      const deathCount = state.patients.filter(
-        x => x['TRẠNG THÁI MỚI NHẤT'] === CONFIG.STATUS.TU_VONG
-      ).length;
+      const finishedCount = state.patients.filter(x => getPatientStatusGroup(x) === 'finished').length;
+      const returnCount = state.patients.filter(x => getPatientStatusGroup(x) === 'returned').length;
+      const deathCount = state.patients.filter(x => getPatientStatusGroup(x) === 'death').length;
 
       $('#summary').innerHTML = `
-        <span class="chip">👥 ${state.patients.length} đối tượng</span>
-        <span class="chip">📖 ${openCount} hồ sơ đang mở</span>
-        <span class="chip">🗂️ ${deathCount} hồ sơ tử vong</span>
+        <span class="chip">👥 ${state.patients.length} hồ sơ</span>
+        <span class="chip">✓ ${finishedCount} hết quyển</span>
+        <span class="chip">⌂ ${returnCount} hồi gia</span>
+        <span class="chip">🗂️ ${deathCount} tử vong</span>
       `;
 
       if (!state.patients.length) {
@@ -5610,70 +5750,35 @@ body {
       }
 
       $('#patientsEmpty').classList.add('hidden');
-
       $('#patientsList').innerHTML = state.patients.map(patient => {
-        const latest = patient['TRẠNG THÁI MỚI NHẤT'] || '';
-        const statusClass = latest === CONFIG.STATUS.TU_VONG
-          ? 'death'
-          : patient['QUYỂN ĐANG MỞ'] ? 'open' : 'closed';
-
+        const latest = normalizeRecordStatus(patient['TRẠNG THÁI MỚI NHẤT']);
+        const statusClass = latest === CONFIG.STATUS.TU_VONG ? 'death' : latest === CONFIG.STATUS.HOI_GIA ? 'open' : 'closed';
         return `
           <article class="patient-card">
             <div class="avatar">${escapeHtml(initials(patient['HỌ VÀ TÊN']))}</div>
-
             <div>
               <h3>${escapeHtml(patient['HỌ VÀ TÊN'])}</h3>
-
               <div class="patient-info-grid">
-                <div class="patient-info-item">
-                  <span class="patient-info-label">Năm sinh</span>
-                  <span class="patient-info-value">${escapeHtml(patient['NĂM SINH'])}</span>
-                </div>
-
-                <div class="patient-info-item">
-                  <span class="patient-info-label">Số hồ sơ</span>
-                  <span class="patient-info-value">${escapeHtml(patient['SỐ HỒ SƠ'])}</span>
-                </div>
-
-                <div class="patient-info-item">
-                  <span class="patient-info-label">Số quyển</span>
-                  <span class="patient-info-value">${Number(patient['TỔNG SỐ QUYỂN']) || 0}</span>
-                </div>
-
-                <div class="patient-info-item">
-                  <span class="patient-info-label">Đang dùng</span>
-                  <span class="patient-info-value">
-                    ${patient['QUYỂN ĐANG MỞ']
-                      ? `Quyển ${escapeHtml(patient['QUYỂN ĐANG MỞ'])}`
-                      : '—'}
-                  </span>
-                </div>
+                <div class="patient-info-item"><span class="patient-info-label">Năm sinh</span><span class="patient-info-value">${escapeHtml(patient['NĂM SINH'])}</span></div>
+                <div class="patient-info-item"><span class="patient-info-label">Giới tính</span><span class="patient-info-value">${escapeHtml(patient['GIỚI TÍNH'] || 'Chưa cập nhật')}</span></div>
+                <div class="patient-info-item"><span class="patient-info-label">Số hồ sơ</span><span class="patient-info-value">${escapeHtml(patient['SỐ HỒ SƠ'])}</span></div>
+                <div class="patient-info-item"><span class="patient-info-label">Số quyển lưu</span><span class="patient-info-value">${Number(patient['TỔNG SỐ QUYỂN']) || 0}</span></div>
               </div>
-
               <div class="patient-status-row">
-                ${latest
-                  ? `<span class="badge ${statusClass}">${escapeHtml(latest)}</span>`
-                  : `<span class="badge closed">Chưa có quyển hồ sơ</span>`}
+                ${latest ? `<span class="badge ${statusClass}">${escapeHtml(latest)}</span>` : `<span class="badge closed">Chưa lưu quyển hồ sơ</span>`}
               </div>
             </div>
-
             <div class="patient-action">
-              <button
-                class="btn small"
-                data-action="open-patient"
-                data-so-ho-so="${escapeAttr(patient['SỐ HỒ SƠ'])}">
-                <span class="detail-label-desktop">Xem chi tiết →</span>
-                <span class="detail-label-mobile" aria-hidden="true">›</span>
+              <button class="btn small" data-action="open-patient" data-so-ho-so="${escapeAttr(patient['SỐ HỒ SƠ'])}">
+                <span class="detail-label-desktop">Xem chi tiết →</span><span class="detail-label-mobile" aria-hidden="true">›</span>
               </button>
             </div>
-          </article>
-        `;
+          </article>`;
       }).join('');
 
       $$('[data-action="open-patient"]').forEach(button => {
         button.addEventListener('click', () => openPatient(button.dataset.soHoSo));
       });
-
       renderFilterControls();
     }
 
@@ -5688,7 +5793,8 @@ body {
         state.currentPatient = patient || {
           'SỐ HỒ SƠ': soHoSo,
           'HỌ VÀ TÊN': '',
-          'NĂM SINH': ''
+          'NĂM SINH': '',
+          'GIỚI TÍNH': ''
         };
 
         state.currentBooks = result.data || [];
@@ -5701,400 +5807,151 @@ body {
     function renderDetail() {
       const patient = state.currentPatient;
       const books = state.currentBooks;
-      const openBook = books.find(book => !book['NGÀY KẾT THÚC']);
-      const isDeath = books.some(
-        book => book['TRẠNG THÁI HIỆN TẠI'] === CONFIG.STATUS.TU_VONG
-      );
+      const isDeath = books.some(book => normalizeRecordStatus(book['TRẠNG THÁI HIỆN TẠI']) === CONFIG.STATUS.TU_VONG);
       const canEdit = canEditRecords();
 
       $('#patientDetail').innerHTML = `
         <section class="detail-card">
           <div class="detail-avatar">${escapeHtml(initials(patient['HỌ VÀ TÊN']))}</div>
-
           <div>
             <h2>${escapeHtml(patient['HỌ VÀ TÊN'])}</h2>
-            <p>Số hồ sơ: <strong>${escapeHtml(patient['SỐ HỒ SƠ'])}</strong></p>
-            <p>Năm sinh: <strong>${escapeHtml(patient['NĂM SINH'])}</strong></p>
-
+            <div class="patient-meta-inline">
+              <span>Số hồ sơ: <strong>${escapeHtml(patient['SỐ HỒ SƠ'])}</strong></span>
+              <span>Năm sinh: <strong>${escapeHtml(patient['NĂM SINH'])}</strong></span>
+              <span>Giới tính: <strong>${escapeHtml(patient['GIỚI TÍNH'] || 'Chưa cập nhật')}</strong></span>
+            </div>
             <div class="badges">
-              <span class="badge">📚 ${books.length} quyển</span>
-              ${openBook
-                ? `<span class="badge open">Đang dùng quyển ${escapeHtml(openBook['QUYỂN SỐ'])}</span>`
-                : ''}
-              ${isDeath
-                ? `<span class="badge death">Đối tượng tử vong</span>`
-                : ''}
+              <span class="badge">📚 ${books.length} quyển lưu</span>
+              ${patient['TRẠNG THÁI MỚI NHẤT'] ? `<span class="badge ${isDeath ? 'death' : 'closed'}">${escapeHtml(patient['TRẠNG THÁI MỚI NHẤT'])}</span>` : ''}
             </div>
           </div>
-
           <div class="detail-action">
-            ${canEdit ? `
-              <button
-                id="openBookBtn"
-                class="btn primary"
-                ${openBook || isDeath ? 'disabled' : ''}>
-                ＋ Mở quyển mới
-              </button>
-            ` : `
-              <span class="readonly-label">👁 Chế độ chỉ xem</span>
-            `}
+            ${canEdit ? `<div class="detail-action-group">
+              <button id="editPatientBtn" class="btn secondary-action">✎ Chỉnh sửa thông tin</button>
+              ${canDeleteRecords() ? `<button id="deletePatientBtn" class="btn danger-action" ${books.length ? 'disabled title="Chỉ xóa được hồ sơ chưa có quyển lưu trữ"' : ''}>🗑 Xóa hồ sơ</button>` : ''}
+              <button id="openBookBtn" class="btn primary" ${isDeath ? 'disabled title="Hồ sơ tử vong không mở thêm quyển mới"' : ''}>＋ Lưu hồ sơ</button>
+            </div>` : `<span class="readonly-label">👁 Chế độ chỉ xem</span>`}
           </div>
         </section>
 
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>Quyển số</th>
-                <th>Ngày bắt đầu</th>
-                <th>Ngày kết thúc</th>
-                <th>Trạng thái</th>
-                <th>Mã/Vị trí lưu trữ</th>
-                <th>File</th>
-                <th>Ghi chú</th>
-                <th>Thao tác</th>
-              </tr>
-            </thead>
+            <thead><tr>
+              <th>Quyển số</th><th>Ngày mở quyển</th><th>Ngày kết thúc</th><th>Trạng thái</th>
+              <th>Nơi tử vong</th><th>Mã/Vị trí lưu trữ</th><th>File</th><th>Ghi chú khác</th><th>Thao tác</th>
+            </tr></thead>
             <tbody>
-              ${books.length ? books.map(bookRowHtml).join('') : `
-                <tr><td colspan="8">Chưa nhập quyển hồ sơ. Khi mở lần đầu, vui lòng nhập đúng quyển thực tế của hồ sơ giấy.</td></tr>
-              `}
+              ${books.length ? books.map(bookRowHtml).join('') : `<tr><td colspan="9">Chưa lưu quyển hồ sơ. Bấm “Lưu hồ sơ” để nhập quyển lưu trữ đầu tiên.</td></tr>`}
             </tbody>
           </table>
-        </div>
-      `;
+        </div>`;
 
       $('#openBookBtn')?.addEventListener('click', () => openBookDialog(patient['SỐ HỒ SƠ']));
-
-      $$('[data-action="close-book"]').forEach(button => {
-        button.addEventListener('click', () => {
-          openCloseBookDialog(
-            button.dataset.soHoSo,
-            Number(button.dataset.quyenSo)
-          );
-        });
+      $('#editPatientBtn')?.addEventListener('click', () => openPatientDialog('edit', patient));
+      $('#deletePatientBtn')?.addEventListener('click', () => openDeletePatientDialog(patient));
+      $$('[data-action="edit-book"]').forEach(button => {
+        button.addEventListener('click', () => openEditBookDialog(Number(button.dataset.quyenSo)));
       });
     }
 
     function bookRowHtml(book) {
-      const isOpen = !book['NGÀY KẾT THÚC'];
-      const status = book['TRẠNG THÁI HIỆN TẠI'] || '';
-      const statusClass = status === CONFIG.STATUS.TU_VONG
-        ? 'death'
-        : isOpen ? 'open' : 'closed';
-
+      const status = normalizeRecordStatus(book['TRẠNG THÁI HIỆN TẠI']) || 'Chưa hoàn tất';
+      const statusClass = status === CONFIG.STATUS.TU_VONG ? 'death' : status === CONFIG.STATUS.HOI_GIA ? 'open' : 'closed';
       return `
         <tr>
           <td><strong>${escapeHtml(book['QUYỂN SỐ'])}</strong></td>
-          <td>${escapeHtml(book['NGÀY BẮT ĐẦU'])}</td>
+          <td>${escapeHtml(book['NGÀY BẮT ĐẦU'] || '—')}</td>
           <td>${escapeHtml(book['NGÀY KẾT THÚC'] || '—')}</td>
-          <td><span class="badge ${statusClass}">${escapeHtml(status)}</span></td>
+          <td><span class="badge ${statusClass}">${escapeHtml(status)}</span>${book['_LEGACY_STATUS'] === CONFIG.STATUS.LEGACY_DANG_KHAM ? '<span class="legacy-status-note">Cần chỉnh sửa để hoàn tất hồ sơ.</span>' : ''}</td>
+          <td>${escapeHtml(book['NƠI TỬ VONG'] || '—')}</td>
           <td>${escapeHtml(book['MÃ SỐ LƯU TRỮ'] || '—')}</td>
-          <td>
-            ${book['FILE ĐÍNH KÈM']
-              ? `<a class="file-link" href="${escapeAttr(book['FILE ĐÍNH KÈM'])}" target="_blank" rel="noopener">📎 Mở file</a>`
-              : '—'}
-          </td>
-          <td>${escapeHtml(book['GHI CHÚ'] || '')}</td>
-          <td>
-            ${isOpen && canEditRecords()
-              ? `<button
-                   class="btn small danger"
-                   data-action="close-book"
-                   data-so-ho-so="${escapeAttr(book['SỐ HỒ SƠ'])}"
-                   data-quyen-so="${escapeAttr(book['QUYỂN SỐ'])}">
-                   Kết thúc
-                 </button>`
-              : ''}
-          </td>
-        </tr>
-      `;
+          <td>${book['FILE ĐÍNH KÈM'] ? `<a class="file-link" href="${escapeAttr(book['FILE ĐÍNH KÈM'])}" target="_blank" rel="noopener">📎 Mở file</a>` : '—'}</td>
+          <td>${escapeHtml(book['GHI CHÚ'] || '—')}</td>
+          <td>${canEditRecords() ? `<button class="btn small edit-action" data-action="edit-book" data-quyen-so="${escapeAttr(book['QUYỂN SỐ'])}">✎ Chỉnh sửa</button>` : '—'}</td>
+        </tr>`;
     }
 
     function renderDeaths() {
+      const years = [...new Set(state.deaths.map(item => Number(item['NĂM TỬ VONG'])).filter(Boolean))].sort((a,b) => b-a);
+      const filtered = state.deathYearFilter === 'all' ? state.deaths : state.deaths.filter(item => String(item['NĂM TỬ VONG']) === String(state.deathYearFilter));
       $('#deathsList').innerHTML = `
         <div class="death-overview">
-          <div>
-            <h3>Danh mục hồ sơ lưu trữ đặc biệt</h3>
-            <p>Các hồ sơ đã được xác nhận trạng thái tử vong và tách riêng để tra cứu, kiểm kê.</p>
-          </div>
-          <div class="death-count">${state.deaths.length}</div>
+          <div><h3>Danh mục hồ sơ tử vong</h3><p>Tra cứu theo năm, nơi tử vong và vị trí lưu trữ.</p></div>
+          <div class="death-count">${filtered.length}</div>
         </div>
-
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Số hồ sơ</th>
-                <th>Họ và tên</th>
-                <th>Năm sinh</th>
-                <th>Quyển số</th>
-                <th>Ngày kết thúc</th>
-                <th>Mã/Vị trí lưu trữ</th>
-                <th>File</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${state.deaths.length ? state.deaths.map(item => `
-                <tr>
-                  <td><strong>${escapeHtml(item['SỐ HỒ SƠ'])}</strong></td>
-                  <td>${escapeHtml(item['HỌ VÀ TÊN'])}</td>
-                  <td>${escapeHtml(item['NĂM SINH'])}</td>
-                  <td><span class="badge closed">Quyển ${escapeHtml(item['QUYỂN SỐ'])}</span></td>
-                  <td>${escapeHtml(item['NGÀY KẾT THÚC'])}</td>
-                  <td><strong>${escapeHtml(item['MÃ SỐ LƯU TRỮ'])}</strong></td>
-                  <td>
-                    ${item['FILE ĐÍNH KÈM']
-                      ? `<a class="file-link" href="${escapeAttr(item['FILE ĐÍNH KÈM'])}" target="_blank" rel="noopener">📎 Mở file</a>`
-                      : '—'}
-                  </td>
-                </tr>
-              `).join('') : `
-                <tr><td colspan="7">Chưa có hồ sơ tử vong.</td></tr>
-              `}
-            </tbody>
-          </table>
+        <div class="death-year-toolbar">
+          <label>Năm tử vong
+            <select id="deathYearSelect">
+              <option value="all">Tất cả các năm</option>
+              ${years.map(year => `<option value="${year}" ${String(state.deathYearFilter) === String(year) ? 'selected' : ''}>${year}</option>`).join('')}
+            </select>
+          </label>
         </div>
-      `;
+        <div class="table-wrap"><table>
+          <thead><tr><th>Số hồ sơ</th><th>Họ và tên</th><th>Năm sinh</th><th>Giới tính</th><th>Quyển số</th><th>Ngày tử vong</th><th>Năm</th><th>Nơi tử vong</th><th>Vị trí lưu</th><th>File</th></tr></thead>
+          <tbody>${filtered.length ? filtered.map(item => `<tr>
+            <td><strong>${escapeHtml(item['SỐ HỒ SƠ'])}</strong></td><td>${escapeHtml(item['HỌ VÀ TÊN'])}</td>
+            <td>${escapeHtml(item['NĂM SINH'])}</td><td>${escapeHtml(item['GIỚI TÍNH'] || '—')}</td>
+            <td><span class="badge closed">Quyển ${escapeHtml(item['QUYỂN SỐ'])}</span></td>
+            <td>${escapeHtml(item['NGÀY KẾT THÚC'])}</td><td><strong>${escapeHtml(item['NĂM TỬ VONG'])}</strong></td>
+            <td>${escapeHtml(item['NƠI TỬ VONG'] || '—')}</td><td>${escapeHtml(item['MÃ SỐ LƯU TRỮ'])}</td>
+            <td>${item['FILE ĐÍNH KÈM'] ? `<a class="file-link" href="${escapeAttr(item['FILE ĐÍNH KÈM'])}" target="_blank" rel="noopener">📎 Mở file</a>` : '—'}</td>
+          </tr>`).join('') : `<tr><td colspan="10">Chưa có hồ sơ tử vong trong năm đã chọn.</td></tr>`}</tbody>
+        </table></div>`;
+      $('#deathYearSelect')?.addEventListener('change', event => {
+        state.deathYearFilter = event.target.value || 'all';
+        renderDeaths();
+      });
     }
 
     function renderStats() {
       const stats = state.stats || {};
-
       const totalPatients = Number(stats.tongDoiTuong) || 0;
       const totalBooks = Number(stats.tongQuyenHoSo) || 0;
-      const openBooks = Number(stats.hoSoDangMo) || 0;
-      const archivedBooks = Number(stats.hoSoDaLuuKho) || 0;
+      const finishedBooks = Number(stats.hoSoHetQuyen) || 0;
+      const returnedBooks = Number(stats.hoSoHoiGia) || 0;
       const deathBooks = Number(stats.hoSoTuVong) || 0;
       const scannedBooks = Number(stats.hoSoCoFile) || 0;
       const unscannedBooks = Number(stats.hoSoChuaFile) || 0;
-
-      const scanRate = totalBooks
-        ? Math.round((scannedBooks / totalBooks) * 100)
-        : 0;
-
-      const archiveRate = totalBooks
-        ? Math.round((archivedBooks / totalBooks) * 100)
-        : 0;
-
-      const openRate = totalBooks
-        ? Math.round((openBooks / totalBooks) * 100)
-        : 0;
-
-      const deathRate = totalBooks
-        ? Math.round((deathBooks / totalBooks) * 100)
-        : 0;
-
-      const averageBooks = totalPatients
-        ? (totalBooks / totalPatients).toFixed(1)
-        : '0';
-
-      const closedBooks = archivedBooks + deathBooks;
-      const closedRate = totalBooks
-        ? Math.round((closedBooks / totalBooks) * 100)
-        : 0;
+      const scanRate = totalBooks ? Math.round(scannedBooks / totalBooks * 100) : 0;
+      const averageBooks = totalPatients ? (totalBooks / totalPatients).toFixed(1) : '0';
+      const rate = value => totalBooks ? Math.round(value / totalBooks * 100) : 0;
 
       $('#statsGrid').innerHTML = `
         <div class="dashboard-kpi-grid">
-          ${dashboardKpiHtml({
-            icon: '👥',
-            label: 'Tổng đối tượng',
-            value: totalPatients,
-            note: 'Số đối tượng đang được quản lý trên hệ thống',
-            color: '#0d7f86',
-            bg: '#e5f8f4',
-            soft: 'rgba(54,194,180,.13)'
-          })}
-
-          ${dashboardKpiHtml({
-            icon: '📚',
-            label: 'Tổng quyển hồ sơ',
-            value: totalBooks,
-            note: `Bình quân ${averageBooks} quyển trên mỗi đối tượng`,
-            color: '#5b63b7',
-            bg: '#eeeffd',
-            soft: 'rgba(91,99,183,.11)'
-          })}
-
-          ${dashboardKpiHtml({
-            icon: '📖',
-            label: 'Hồ sơ đang mở',
-            value: openBooks,
-            note: `${openRate}% tổng số quyển đang được sử dụng`,
-            color: '#1c9664',
-            bg: '#e6f7ee',
-            soft: 'rgba(46,182,125,.12)'
-          })}
-
-          ${dashboardKpiHtml({
-            icon: '🗄️',
-            label: 'Đã lưu kho',
-            value: archivedBooks,
-            note: `${archiveRate}% tổng số quyển đã đóng và lưu trữ`,
-            color: '#c47b13',
-            bg: '#fff3db',
-            soft: 'rgba(249,176,65,.13)'
-          })}
+          ${dashboardKpiHtml({icon:'👥',label:'Tổng hồ sơ',value:totalPatients,note:'Số đối tượng đã tạo hồ sơ lưu trữ',color:'#0d7f86',bg:'#e5f8f4',soft:'rgba(54,194,180,.13)'})}
+          ${dashboardKpiHtml({icon:'📚',label:'Tổng quyển lưu',value:totalBooks,note:`Bình quân ${averageBooks} quyển/hồ sơ`,color:'#5b63b7',bg:'#eeeffd',soft:'rgba(91,99,183,.11)'})}
+          ${dashboardKpiHtml({icon:'✓',label:'Hết quyển',value:finishedBooks,note:`${rate(finishedBooks)}% tổng số quyển`,color:'#1c9664',bg:'#e6f7ee',soft:'rgba(46,182,125,.12)'})}
+          ${dashboardKpiHtml({icon:'⌂',label:'Đối tượng hồi gia',value:returnedBooks,note:`${rate(returnedBooks)}% tổng số quyển`,color:'#c47b13',bg:'#fff3db',soft:'rgba(249,176,65,.13)'})}
         </div>
-
         <div class="dashboard-panels">
           <article class="dashboard-panel">
-            <div class="dashboard-panel-head">
-              <div>
-                <h3 class="dashboard-panel-title">Tiến độ số hóa hồ sơ</h3>
-                <p class="dashboard-panel-subtitle">
-                  Tỷ lệ quyển hồ sơ đã có file scan điện tử
-                </p>
-              </div>
-              <span class="dashboard-panel-badge">${scanRate}%</span>
-            </div>
-
-            <div class="scan-overview">
-              <div class="scan-ring" style="--progress:${scanRate}">
-                <div class="scan-ring-value">
-                  <strong>${scanRate}%</strong>
-                  <span>Đã số hóa</span>
-                </div>
-              </div>
-
-              <div class="scan-details">
-                <div class="scan-detail-row">
-                  <span>Có file scan</span>
-                  <strong>${scannedBooks} quyển</strong>
-                </div>
-
-                <div class="progress-track">
-                  <div class="progress-fill" style="width:${scanRate}%"></div>
-                </div>
-
-                <div class="scan-detail-row">
-                  <span>Chưa có file scan</span>
-                  <strong>${unscannedBooks} quyển</strong>
-                </div>
-
-                <div class="scan-detail-row">
-                  <span>Tổng cần quản lý</span>
-                  <strong>${totalBooks} quyển</strong>
-                </div>
-              </div>
+            <div class="dashboard-panel-head"><div><h3 class="dashboard-panel-title">Tiến độ số hóa hồ sơ</h3><p class="dashboard-panel-subtitle">Tỷ lệ quyển hồ sơ có file scan hoặc hình ảnh</p></div><span class="dashboard-panel-badge">${scanRate}%</span></div>
+            <div class="scan-overview"><div class="scan-ring" style="--progress:${scanRate}"><div class="scan-ring-value"><strong>${scanRate}%</strong><span>Đã số hóa</span></div></div>
+              <div class="scan-details"><div class="scan-detail-row"><span>Có file</span><strong>${scannedBooks} quyển</strong></div><div class="progress-track"><div class="progress-fill" style="width:${scanRate}%"></div></div><div class="scan-detail-row"><span>Chưa có file</span><strong>${unscannedBooks} quyển</strong></div><div class="scan-detail-row"><span>Tổng quyển</span><strong>${totalBooks} quyển</strong></div></div>
             </div>
           </article>
-
           <article class="dashboard-panel">
-            <div class="dashboard-panel-head">
-              <div>
-                <h3 class="dashboard-panel-title">Cơ cấu trạng thái hồ sơ</h3>
-                <p class="dashboard-panel-subtitle">
-                  Phân bố quyển đang sử dụng, đã lưu kho và hồ sơ tử vong
-                </p>
-              </div>
-              <span class="dashboard-panel-badge">${totalBooks} quyển</span>
-            </div>
-
+            <div class="dashboard-panel-head"><div><h3 class="dashboard-panel-title">Cơ cấu trạng thái lưu trữ</h3><p class="dashboard-panel-subtitle">Hết quyển, hồi gia và tử vong</p></div><span class="dashboard-panel-badge">${totalBooks} quyển</span></div>
             <div class="status-bars">
-              ${statusBarHtml(
-                'Hồ sơ đang mở',
-                openBooks,
-                openRate,
-                'open'
-              )}
-
-              ${statusBarHtml(
-                'Đã lưu kho',
-                archivedBooks,
-                archiveRate,
-                'archive'
-              )}
-
-              ${statusBarHtml(
-                'Hồ sơ tử vong',
-                deathBooks,
-                deathRate,
-                'death'
-              )}
+              ${statusBarHtml('Hết quyển', finishedBooks, rate(finishedBooks), 'archive')}
+              ${statusBarHtml('Đối tượng hồi gia', returnedBooks, rate(returnedBooks), 'open')}
+              ${statusBarHtml('Đối tượng tử vong', deathBooks, rate(deathBooks), 'death')}
             </div>
           </article>
-
           <article class="dashboard-panel">
-            <div class="dashboard-panel-head">
-              <div>
-                <h3 class="dashboard-panel-title">Chỉ số quản lý</h3>
-                <p class="dashboard-panel-subtitle">
-                  Các chỉ số phục vụ kiểm tra và theo dõi hồ sơ
-                </p>
-              </div>
-            </div>
-
+            <div class="dashboard-panel-head"><div><h3 class="dashboard-panel-title">Chỉ số quản lý</h3><p class="dashboard-panel-subtitle">Các chỉ số phục vụ kiểm tra hồ sơ lưu trữ</p></div></div>
             <div class="management-metrics">
-              ${managementMetricHtml(
-                '📘',
-                'Bình quân quyển',
-                `${averageBooks}`,
-                'Mỗi đối tượng',
-                '#5b63b7',
-                '#eeeffd'
-              )}
-
-              ${managementMetricHtml(
-                '✅',
-                'Tỷ lệ đã đóng',
-                `${closedRate}%`,
-                `${closedBooks}/${totalBooks} quyển`,
-                '#1c9664',
-                '#e6f7ee'
-              )}
-
-              ${managementMetricHtml(
-                '📎',
-                'File còn thiếu',
-                `${unscannedBooks}`,
-                'Quyển cần bổ sung',
-                '#d36a3d',
-                '#fff0e8'
-              )}
+              ${managementMetricHtml('📘','Bình quân quyển',`${averageBooks}`,'Mỗi hồ sơ','#5b63b7','#eeeffd')}
+              ${managementMetricHtml('●','Hồ sơ tử vong',`${deathBooks}`,'Quyển hồ sơ','#b94747','#fdebec')}
+              ${managementMetricHtml('📎','File còn thiếu',`${unscannedBooks}`,'Quyển cần bổ sung','#d36a3d','#fff0e8')}
             </div>
           </article>
         </div>
-
         <div class="dashboard-alerts">
-          <article class="dashboard-alert ${unscannedBooks ? 'warning' : 'success'}">
-            <div class="dashboard-alert-icon">
-              ${unscannedBooks ? '⚠️' : '✓'}
-            </div>
-            <div>
-              <strong>
-                ${unscannedBooks
-                  ? `${unscannedBooks} quyển chưa có file scan`
-                  : 'Đã hoàn tất file scan'}
-              </strong>
-              <p>
-                ${unscannedBooks
-                  ? 'Cần tiếp tục bổ sung file điện tử để hoàn thiện dữ liệu số hóa hồ sơ.'
-                  : 'Tất cả quyển hồ sơ hiện có đều đã được đính kèm file điện tử.'}
-              </p>
-            </div>
-          </article>
-
-          <article class="dashboard-alert ${openBooks ? '' : 'success'}">
-            <div class="dashboard-alert-icon">
-              ${openBooks ? '📖' : '✓'}
-            </div>
-            <div>
-              <strong>
-                ${openBooks
-                  ? `${openBooks} quyển đang được sử dụng`
-                  : 'Không có quyển đang mở'}
-              </strong>
-              <p>
-                ${openBooks
-                  ? 'Các quyển này phải có ngày kết thúc trước khi mở quyển tiếp theo.'
-                  : 'Toàn bộ quyển hiện tại đã được đóng và xác định vị trí lưu trữ.'}
-              </p>
-            </div>
-          </article>
-        </div>
-
-      `;
+          <article class="dashboard-alert ${unscannedBooks ? 'warning' : 'success'}"><div class="dashboard-alert-icon">${unscannedBooks ? '⚠️' : '✓'}</div><div><strong>${unscannedBooks ? `${unscannedBooks} quyển chưa có file` : 'Đã hoàn tất file số hóa'}</strong><p>${unscannedBooks ? 'Cần tiếp tục bổ sung file scan hoặc hình ảnh.' : 'Tất cả quyển hiện có đều đã đính kèm file.'}</p></div></article>
+          <article class="dashboard-alert ${deathBooks ? '' : 'success'}"><div class="dashboard-alert-icon">${deathBooks ? '●' : '✓'}</div><div><strong>${deathBooks ? `${deathBooks} quyển thuộc hồ sơ tử vong` : 'Chưa có hồ sơ tử vong'}</strong><p>Danh mục tử vong có thể lọc theo năm và nơi tử vong.</p></div></article>
+        </div>`;
     }
 
     function dashboardKpiHtml({
@@ -6173,175 +6030,220 @@ body {
     }
 
 
+    function openPatientDialog(mode = 'add', patient = null) {
+      if (!requireEditPermission()) return;
+      const form = $('#patientForm');
+      form.reset();
+      form.elements.mode.value = mode;
+      const isEdit = mode === 'edit';
+      $('#patientDialogTitle').textContent = isEdit ? 'Chỉnh sửa thông tin hồ sơ' : 'Thêm hồ sơ';
+      $('#patientSubmitBtn').textContent = isEdit ? 'Cập nhật hồ sơ' : 'Lưu hồ sơ';
+      form.elements.soHoSo.readOnly = isEdit;
+      $('#patientNumberHelp').textContent = isEdit ? 'Số hồ sơ được khóa để bảo đảm liên kết dữ liệu các quyển.' : 'Số hồ sơ phải duy nhất trên hệ thống.';
+      if (isEdit && patient) {
+        form.elements.soHoSo.value = patient['SỐ HỒ SƠ'] || '';
+        form.elements.hoTen.value = patient['HỌ VÀ TÊN'] || '';
+        form.elements.namSinh.value = patient['NĂM SINH'] || '';
+        form.elements.gioiTinh.value = patient['GIỚI TÍNH'] || '';
+      }
+      $('#patientDialog').showModal();
+    }
+
+    function updateDeathPlaceVisibility() {
+      const form = $('#bookForm');
+      const isDeath = form.elements.trangThai.value === CONFIG.STATUS.TU_VONG;
+      $('#deathPlaceField').classList.toggle('hidden', !isDeath);
+      form.elements.noiTuVong.required = isDeath;
+      if (!isDeath) form.elements.noiTuVong.value = '';
+    }
+
     function openBookDialog(soHoSo) {
       if (!requireEditPermission()) return;
       const form = $('#bookForm');
       form.reset();
+      form.elements.mode.value = 'add';
       form.elements.soHoSo.value = soHoSo;
-      form.elements.ngayBatDau.value = new Date().toISOString().slice(0, 10);
-
-      const books = state.currentBooks || [];
-      const bookInput = form.elements.quyenSo;
-      const help = $('#bookNumberHelp');
-      const submitButton = form.querySelector('[type="submit"]');
-
-      if (!books.length) {
-        // Hồ sơ lần đầu được đưa lên phần mềm: phải nhập quyển thực tế.
-        bookInput.value = '';
-        bookInput.readOnly = false;
-        bookInput.focus();
-        help.textContent =
-          'Nhập đúng quyển hiện tại hoặc quyển tiếp theo của hồ sơ giấy, ví dụ 5 hoặc 6.';
-        submitButton.textContent = 'Mở quyển';
-      } else {
-        // Các lần sau hệ thống tự tăng số quyển.
-        const nextBook = Math.max(
-          ...books.map(book => Number(book['QUYỂN SỐ']) || 0)
-        ) + 1;
-
-        bookInput.value = nextBook;
-        bookInput.readOnly = true;
-        help.textContent =
-          `Hệ thống tự xác định quyển tiếp theo là quyển ${nextBook}.`;
-        submitButton.textContent = `Mở quyển ${nextBook}`;
-      }
-
+      form.elements.originalQuyenSo.value = '';
+      form.elements.existingFileUrl.value = '';
+      const nextBook = state.currentBooks.length ? Math.max(...state.currentBooks.map(book => Number(book['QUYỂN SỐ']) || 0)) + 1 : 1;
+      form.elements.quyenSo.value = nextBook;
+      form.elements.quyenSo.readOnly = false;
+      const today = new Date().toISOString().slice(0, 10);
+      form.elements.ngayBatDau.value = today;
+      form.elements.ngayKetThuc.value = today;
+      $('#bookDialogTitle').textContent = 'Lưu hồ sơ bệnh án';
+      $('#bookSubmitBtn').textContent = 'Lưu hồ sơ';
+      $('#bookNumberHelp').textContent = 'Hệ thống gợi ý số quyển tiếp theo; có thể điều chỉnh khi nhập hồ sơ lưu trữ cũ.';
+      $('#existingFileNotice').classList.add('hidden');
+      updateDeathPlaceVisibility();
       $('#bookDialog').showModal();
     }
 
-    function openCloseBookDialog(soHoSo, quyenSo) {
+    function openEditBookDialog(quyenSo) {
       if (!requireEditPermission()) return;
-      const form = $('#closeBookForm');
+      const book = state.currentBooks.find(item => Number(item['QUYỂN SỐ']) === Number(quyenSo));
+      if (!book) return showToast('Không tìm thấy quyển hồ sơ.', true);
+      const form = $('#bookForm');
       form.reset();
-      form.elements.soHoSo.value = soHoSo;
-      form.elements.quyenSo.value = quyenSo;
-      form.elements.ngayKetThuc.value = new Date().toISOString().slice(0, 10);
-      $('#closeBookDialog').showModal();
+      form.elements.mode.value = 'edit';
+      form.elements.soHoSo.value = state.currentPatient['SỐ HỒ SƠ'];
+      form.elements.originalQuyenSo.value = book['QUYỂN SỐ'];
+      form.elements.quyenSo.value = book['QUYỂN SỐ'];
+      form.elements.quyenSo.readOnly = true;
+      form.elements.ngayBatDau.value = book['NGÀY BẮT ĐẦU'] || '';
+      form.elements.ngayKetThuc.value = book['NGÀY KẾT THÚC'] || new Date().toISOString().slice(0, 10);
+      const mappedStatus = normalizeRecordStatus(book['TRẠNG THÁI HIỆN TẠI']);
+      form.elements.trangThai.value = mappedStatus || CONFIG.STATUS.HET_QUYEN;
+      form.elements.noiTuVong.value = book['NƠI TỬ VONG'] || '';
+      form.elements.maLuuTru.value = book['MÃ SỐ LƯU TRỮ'] || '';
+      form.elements.ghiChu.value = book['GHI CHÚ'] || '';
+      form.elements.existingFileUrl.value = book['FILE ĐÍNH KÈM'] || '';
+      $('#bookDialogTitle').textContent = `Chỉnh sửa quyển ${book['QUYỂN SỐ']}`;
+      $('#bookSubmitBtn').textContent = 'Cập nhật hồ sơ';
+      $('#bookNumberHelp').textContent = 'Số quyển được khóa khi chỉnh sửa để tránh trùng dữ liệu.';
+      const notice = $('#existingFileNotice');
+      if (book['FILE ĐÍNH KÈM']) {
+        notice.innerHTML = `Đang có file: <a href="${escapeAttr(book['FILE ĐÍNH KÈM'])}" target="_blank" rel="noopener">Mở file hiện tại</a>. Chọn file mới nếu cần thay thế liên kết.`;
+        notice.classList.remove('hidden');
+      } else {
+        notice.classList.add('hidden');
+      }
+      updateDeathPlaceVisibility();
+      $('#bookDialog').showModal();
+    }
+
+    function openDeletePatientDialog(patient) {
+      if (!canDeleteRecords()) {
+        showToast('Tài khoản hiện tại không có quyền xóa hồ sơ.', true);
+        return;
+      }
+
+      if (state.currentBooks.length > 0) {
+        showToast('Chỉ xóa được hồ sơ chưa có quyển lưu trữ.', true);
+        return;
+      }
+
+      const form = $('#deletePatientForm');
+      form.reset();
+      form.elements.soHoSo.value = patient['SỐ HỒ SƠ'];
+      $('#deletePatientNumber').textContent = patient['SỐ HỒ SƠ'] || '—';
+      $('#deletePatientName').textContent = patient['HỌ VÀ TÊN'] || '—';
+      $('#deletePatientDialog').showModal();
+      setTimeout(() => $('#deleteReasonInput')?.focus(), 80);
     }
 
     async function submitPatient(event) {
       event.preventDefault();
       if (!requireEditPermission()) return;
-
       const form = event.currentTarget;
-      const submitButton = form.querySelector('[type="submit"]');
+      const submitButton = $('#patientSubmitBtn');
+      const originalText = submitButton.textContent;
       submitButton.disabled = true;
       submitButton.textContent = 'Đang lưu...';
       const data = Object.fromEntries(new FormData(form).entries());
 
-      await withLoading(async () => {
-        const result = await api.post('themDoiTuong', data);
+      try {
+        await withLoading(async () => {
+          const action = data.mode === 'edit' ? 'capNhatDoiTuong' : 'themDoiTuong';
+          const result = await api.post(action, data);
+          const existingIndex = state.allPatients.findIndex(item => normalize(item['SỐ HỒ SƠ']) === normalize(result.data['SỐ HỒ SƠ']));
+          if (existingIndex >= 0) state.allPatients[existingIndex] = result.data;
+          else state.allPatients.unshift(result.data);
+          if (state.currentPatient && normalize(state.currentPatient['SỐ HỒ SƠ']) === normalize(result.data['SỐ HỒ SƠ'])) {
+            state.currentPatient = result.data;
+          }
+          searchPatients();
+          if (data.mode === 'edit') renderDetail();
+          form.reset();
+          $('#patientDialog').close();
+          showToast(result.message);
+          refreshPatientSummariesSilently();
+        });
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+      }
+    }
 
-        state.allPatients.unshift(result.data);
-        state.patients = [...state.allPatients];
-        renderPatients();
+    async function submitDeletePatient(event) {
+      event.preventDefault();
 
-        form.reset();
-        $('#patientDialog').close();
-        showToast(result.message);
-      });
+      if (!canDeleteRecords()) {
+        showToast('Tài khoản hiện tại không có quyền xóa hồ sơ.', true);
+        return;
+      }
 
-      submitButton.disabled = false;
-      submitButton.textContent = 'Lưu đối tượng';
+      const form = event.currentTarget;
+      const submitButton = $('#deletePatientSubmitBtn');
+      const originalText = submitButton.textContent;
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      submitButton.disabled = true;
+      submitButton.textContent = 'Đang xóa...';
+
+      try {
+        await withLoading(async () => {
+          const result = await api.post('xoaDoiTuong', data);
+          const targetNumber = normalize(data.soHoSo);
+
+          state.allPatients = state.allPatients.filter(
+            item => normalize(item['SỐ HỒ SƠ']) !== targetNumber
+          );
+          state.patients = state.patients.filter(
+            item => normalize(item['SỐ HỒ SƠ']) !== targetNumber
+          );
+          state.currentPatient = null;
+          state.currentBooks = [];
+          state.deathsLoaded = false;
+
+          form.reset();
+          $('#deletePatientDialog').close();
+          searchPatients();
+          renderStats();
+          switchView('patients');
+          showToast(result.message);
+          await refreshPatientSummariesSilently();
+        });
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+      }
     }
 
     async function submitBook(event) {
       event.preventDefault();
       if (!requireEditPermission()) return;
-
       const form = event.currentTarget;
-      const submitButton = form.querySelector('[type="submit"]');
+      const submitButton = $('#bookSubmitBtn');
+      const originalText = submitButton.textContent;
       submitButton.disabled = true;
-      submitButton.textContent = 'Đang mở...';
-      const data = Object.fromEntries(new FormData(form).entries());
-
-      await withLoading(async () => {
-        const result = await api.post('themQuyenHoSo', data);
-
-        state.currentBooks.push(result.data);
-
-        const patient = state.allPatients.find(
-          item => normalize(item['SỐ HỒ SƠ']) === normalize(data.soHoSo)
-        );
-
-        if (patient) {
-          patient['TỔNG SỐ QUYỂN'] = Number(patient['TỔNG SỐ QUYỂN'] || 0) + 1;
-          patient['QUYỂN ĐANG MỞ'] = result.data['QUYỂN SỐ'];
-          patient['TRẠNG THÁI MỚI NHẤT'] = CONFIG.STATUS.DANG_KHAM;
-        }
-
-        state.deathsLoaded = false;
-        renderPatients();
-        renderDetail();
-
-        form.reset();
-        $('#bookDialog').close();
-        showToast(result.message);
-
-        refreshPatientSummariesSilently();
-      });
-
-      submitButton.disabled = false;
-      submitButton.textContent = 'Mở quyển';
-    }
-
-    async function submitCloseBook(event) {
-      event.preventDefault();
-      if (!requireEditPermission()) return;
-
-      const form = event.currentTarget;
-      const submitButton = form.querySelector('[type="submit"]');
-      submitButton.disabled = true;
-      submitButton.textContent = 'Đang xử lý...';
+      submitButton.textContent = 'Đang lưu...';
       const formData = new FormData(form);
       const file = formData.get('file');
       const data = Object.fromEntries(formData.entries());
       delete data.file;
 
-      data.maLuuTru = String(data.maLuuTru || '').trim();
-      if (!data.maLuuTru) {
+      try {
+        await withLoading(async () => {
+          const result = await api.saveBookWithFile({ ...data, quyenSo: Number(data.quyenSo), originalQuyenSo: Number(data.originalQuyenSo || data.quyenSo) }, file && file.size ? file : null);
+          const index = state.currentBooks.findIndex(book => Number(book['QUYỂN SỐ']) === Number(data.originalQuyenSo || data.quyenSo));
+          if (index >= 0) state.currentBooks[index] = result.data;
+          else state.currentBooks.push(result.data);
+          state.currentBooks.sort((a,b) => Number(a['QUYỂN SỐ']) - Number(b['QUYỂN SỐ']));
+          form.reset();
+          $('#bookDialog').close();
+          showToast(result.message);
+          await refreshPatientSummariesSilently();
+          const refreshed = state.allPatients.find(item => normalize(item['SỐ HỒ SƠ']) === normalize(data.soHoSo));
+          if (refreshed) state.currentPatient = refreshed;
+          renderDetail();
+          state.deathsLoaded = false;
+        });
+      } finally {
         submitButton.disabled = false;
-        submitButton.textContent = 'Kết thúc quyển';
-        showToast('Vui lòng nhập mã hoặc vị trí lưu trữ hồ sơ.', true);
-        form.elements.maLuuTru.focus();
-        return;
+        submitButton.textContent = originalText;
       }
-
-      await withLoading(async () => {
-        const result = await api.closeBookWithFile({
-          ...data,
-          quyenSo: Number(data.quyenSo)
-        }, file && file.size ? file : null);
-
-        const index = state.currentBooks.findIndex(
-          book => Number(book['QUYỂN SỐ']) === Number(data.quyenSo)
-        );
-
-        if (index >= 0) state.currentBooks[index] = result.data;
-
-        const patient = state.allPatients.find(
-          item => normalize(item['SỐ HỒ SƠ']) === normalize(data.soHoSo)
-        );
-
-        if (patient) {
-          patient['QUYỂN ĐANG MỞ'] = '';
-          patient['TRẠNG THÁI MỚI NHẤT'] = result.data['TRẠNG THÁI HIỆN TẠI'];
-        }
-
-        renderPatients();
-        renderDetail();
-
-        form.reset();
-        $('#closeBookDialog').close();
-        showToast(result.message);
-
-        refreshPatientSummariesSilently();
-      });
-
-      submitButton.disabled = false;
-      submitButton.textContent = 'Kết thúc quyển';
     }
-
 
     async function refreshPatientSummariesSilently() {
       try {
@@ -6556,3 +6458,9 @@ body {
 
 </body>
 </html>
+
+
+
+
+
+
