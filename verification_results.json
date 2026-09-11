@@ -1,0 +1,388 @@
+{
+  "version": "2026.09.11.2",
+  "tests": [
+    [
+      "JS module found",
+      "PASS",
+      ""
+    ],
+    [
+      "Frontend JS syntax",
+      "PASS",
+      ""
+    ],
+    [
+      "Service Worker syntax",
+      "PASS",
+      ""
+    ],
+    [
+      "Code.gs syntax",
+      "PASS",
+      ""
+    ],
+    [
+      "JSON structures",
+      "PASS",
+      ""
+    ],
+    [
+      "No duplicate static DOM ids",
+      "PASS",
+      "[]"
+    ],
+    [
+      "Version aligned",
+      "PASS",
+      ""
+    ],
+    [
+      "Lightweight version check",
+      "PASS",
+      ""
+    ],
+    [
+      "File input supports multiple",
+      "PASS",
+      ""
+    ],
+    [
+      "Existing file X/undo UI",
+      "PASS",
+      ""
+    ],
+    [
+      "Pending new file X UI",
+      "PASS",
+      ""
+    ],
+    [
+      "Multi-file metadata map",
+      "PASS",
+      ""
+    ],
+    [
+      "Death keeps at least one file",
+      "PASS",
+      ""
+    ],
+    [
+      "A + add B -> A+B",
+      "PASS",
+      ""
+    ],
+    [
+      "A + X A + add B -> B",
+      "PASS",
+      ""
+    ],
+    [
+      "A+B + X A -> B",
+      "PASS",
+      ""
+    ],
+    [
+      "No X keeps old files",
+      "PASS",
+      ""
+    ],
+    [
+      "Save avoids full quyenHoSo root scan",
+      "PASS",
+      ""
+    ],
+    [
+      "Cleanup job is part of same RTDB commit",
+      "PASS",
+      ""
+    ],
+    [
+      "Drive delete only after RTDB commit",
+      "PASS",
+      ""
+    ],
+    [
+      "Failed primary commit cleans uploaded temporary files",
+      "PASS",
+      ""
+    ],
+    [
+      "Drive binary not written to RTDB save",
+      "PASS",
+      ""
+    ],
+    [
+      "Cleanup queue path configured",
+      "PASS",
+      ""
+    ],
+    [
+      "Cleanup job contains signed token",
+      "PASS",
+      ""
+    ],
+    [
+      "Cleanup job persists patient/book context",
+      "PASS",
+      ""
+    ],
+    [
+      "Cleanup success removes RTDB queue",
+      "PASS",
+      ""
+    ],
+    [
+      "Cleanup failure retains and records retry",
+      "PASS",
+      ""
+    ],
+    [
+      "Login triggers bounded cleanup retry",
+      "PASS",
+      ""
+    ],
+    [
+      "Cleanup query bounded",
+      "PASS",
+      ""
+    ],
+    [
+      "Patient renumber migrates pending jobs",
+      "PASS",
+      ""
+    ],
+    [
+      "Crash after commit leaves durable cleanup intent",
+      "PASS",
+      ""
+    ],
+    [
+      "Later session can finish queued cleanup",
+      "PASS",
+      ""
+    ],
+    [
+      "Managed delete actions present",
+      "PASS",
+      ""
+    ],
+    [
+      "Signed cleanup token generated",
+      "PASS",
+      ""
+    ],
+    [
+      "Signed cleanup token verified",
+      "PASS",
+      ""
+    ],
+    [
+      "Delete token secret auto provisioned",
+      "PASS",
+      ""
+    ],
+    [
+      "No volatile CacheService delete ticket",
+      "PASS",
+      ""
+    ],
+    [
+      "Managed delete reads durable RTDB job",
+      "PASS",
+      ""
+    ],
+    [
+      "Managed delete checks HSBA root",
+      "PASS",
+      ""
+    ],
+    [
+      "Managed delete checks HSBA-managed description",
+      "PASS",
+      ""
+    ],
+    [
+      "Managed delete checks current book reference",
+      "PASS",
+      ""
+    ],
+    [
+      "Managed delete checks death reference",
+      "PASS",
+      ""
+    ],
+    [
+      "Already-trashed deletion is idempotent",
+      "PASS",
+      ""
+    ],
+    [
+      "Transition fallback remains safe",
+      "PASS",
+      ""
+    ],
+    [
+      "File Service stores uploads in Drive",
+      "PASS",
+      ""
+    ],
+    [
+      "Rules include private cleanup queue",
+      "PASS",
+      ""
+    ],
+    [
+      "Cleanup queue not public",
+      "PASS",
+      ""
+    ],
+    [
+      "Cleanup queue indexed",
+      "PASS",
+      ""
+    ],
+    [
+      "Queue creation bound to current user",
+      "PASS",
+      ""
+    ],
+    [
+      "Queue immutable file/token context",
+      "PASS",
+      ""
+    ],
+    [
+      "Editor cannot retarget cleanup patient",
+      "PASS",
+      ""
+    ],
+    [
+      "Rules public mode retained",
+      "PASS",
+      ""
+    ],
+    [
+      "Private books require auth",
+      "PASS",
+      ""
+    ],
+    [
+      "Rules enforce death last for all writers",
+      "PASS",
+      ""
+    ],
+    [
+      "Rules no admin bypass for death-last clause",
+      "PASS",
+      ""
+    ],
+    [
+      "Rules enforce one death via hoSoTuVong",
+      "PASS",
+      ""
+    ],
+    [
+      "Book operation token protected",
+      "PASS",
+      ""
+    ],
+    [
+      "Same UID cannot replace active lock token",
+      "PASS",
+      ""
+    ],
+    [
+      "Storage scoped rules",
+      "PASS",
+      ""
+    ],
+    [
+      "Patient page bounded",
+      "PASS",
+      ""
+    ],
+    [
+      "Death page bounded",
+      "PASS",
+      ""
+    ],
+    [
+      "Status filter remote query",
+      "PASS",
+      ""
+    ],
+    [
+      "Storage summary/lazy detail",
+      "PASS",
+      ""
+    ],
+    [
+      "Report Excel includes storage area",
+      "PASS",
+      ""
+    ],
+    [
+      "Large report yields event loop",
+      "PASS",
+      ""
+    ],
+    [
+      "Public schema excludes scan URLs from death helper",
+      "PASS",
+      ""
+    ],
+    [
+      "Rules validation JSON parses",
+      "PASS",
+      ""
+    ],
+    [
+      "Rules handoff starts at root",
+      "PASS",
+      ""
+    ],
+    [
+      "Rules handoff ends at exact HSBA boundary",
+      "PASS",
+      ""
+    ],
+    [
+      "Synthetic 500 patient traversal",
+      "PASS",
+      "0.375 ms / 1500 books"
+    ],
+    [
+      "Synthetic 2000 patient traversal",
+      "PASS",
+      "2.565 ms / 6000 books"
+    ],
+    [
+      "Synthetic 5000 patient traversal",
+      "PASS",
+      "3.723 ms / 15000 books"
+    ]
+  ],
+  "synthetic_performance": [
+    {
+      "patients": 500,
+      "books": 1500,
+      "elapsed_ms": 0.375,
+      "common_boxes": 3,
+      "death_boxes": 3
+    },
+    {
+      "patients": 2000,
+      "books": 6000,
+      "elapsed_ms": 2.565,
+      "common_boxes": 10,
+      "death_boxes": 10
+    },
+    {
+      "patients": 5000,
+      "books": 15000,
+      "elapsed_ms": 3.723,
+      "common_boxes": 25,
+      "death_boxes": 25
+    }
+  ]
+}
