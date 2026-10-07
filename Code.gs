@@ -26,7 +26,7 @@ const CONFIG = Object.freeze({
   FIREBASE_DATABASE_URL:
     'https://hsba-trung-tam-test-default-rtdb.asia-southeast1.firebasedatabase.app',
 
-  SERVICE_VERSION: '2026.09.11.2',
+  SERVICE_VERSION: '2026.10.07.1',
   OWNER_EMAIL: 'thanhbds2011@gmail.com',
   TIMEZONE: 'Asia/Ho_Chi_Minh',
   MAX_FILE_SIZE_BYTES: 20 * 1024 * 1024,

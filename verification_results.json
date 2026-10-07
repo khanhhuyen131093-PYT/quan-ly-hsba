@@ -1,5 +1,5 @@
 {
-  "version": "2026.09.11.2",
+  "version": "2026.10.07.1",
   "tests": [
     [
       "JS module found",
@@ -22,7 +22,7 @@
       ""
     ],
     [
-      "JSON structures",
+      "Runtime JSON structures",
       "PASS",
       ""
     ],
@@ -37,302 +37,77 @@
       ""
     ],
     [
-      "Lightweight version check",
+      "PUBLIC_SCHEMA_VERSION = 3",
       "PASS",
       ""
     ],
     [
-      "File input supports multiple",
+      "No undefined storageStats payload",
       "PASS",
       ""
     ],
     [
-      "Existing file X/undo UI",
+      "Storage metadata strips areas/boxes",
       "PASS",
       ""
     ],
     [
-      "Pending new file X UI",
+      "Book stats derive from storage statistics",
       "PASS",
       ""
     ],
     [
-      "Multi-file metadata map",
+      "Private fallback for incomplete storage meta",
       "PASS",
       ""
     ],
     [
-      "Death keeps at least one file",
+      "Dashboard waits for storage stats load",
       "PASS",
       ""
     ],
     [
-      "A + add B -> A+B",
+      "Transferred/other status refreshed",
       "PASS",
       ""
     ],
     [
-      "A + X A + add B -> B",
+      "Inventory 0/0 message fixed",
       "PASS",
       ""
     ],
     [
-      "A+B + X A -> B",
+      "Startup after final production overrides",
+      "PASS",
+      "start=604233, override=598609"
+    ],
+    [
+      "Scoped storage CHUNG",
       "PASS",
       ""
     ],
     [
-      "No X keeps old files",
+      "Scoped storage TU_VONG",
       "PASS",
       ""
     ],
     [
-      "Save avoids full quyenHoSo root scan",
+      "Lock retained",
       "PASS",
       ""
     ],
     [
-      "Cleanup job is part of same RTDB commit",
+      "Cleanup queue retained",
       "PASS",
       ""
     ],
     [
-      "Drive delete only after RTDB commit",
+      "Managed delete action retained",
       "PASS",
       ""
     ],
     [
-      "Failed primary commit cleans uploaded temporary files",
-      "PASS",
-      ""
-    ],
-    [
-      "Drive binary not written to RTDB save",
-      "PASS",
-      ""
-    ],
-    [
-      "Cleanup queue path configured",
-      "PASS",
-      ""
-    ],
-    [
-      "Cleanup job contains signed token",
-      "PASS",
-      ""
-    ],
-    [
-      "Cleanup job persists patient/book context",
-      "PASS",
-      ""
-    ],
-    [
-      "Cleanup success removes RTDB queue",
-      "PASS",
-      ""
-    ],
-    [
-      "Cleanup failure retains and records retry",
-      "PASS",
-      ""
-    ],
-    [
-      "Login triggers bounded cleanup retry",
-      "PASS",
-      ""
-    ],
-    [
-      "Cleanup query bounded",
-      "PASS",
-      ""
-    ],
-    [
-      "Patient renumber migrates pending jobs",
-      "PASS",
-      ""
-    ],
-    [
-      "Crash after commit leaves durable cleanup intent",
-      "PASS",
-      ""
-    ],
-    [
-      "Later session can finish queued cleanup",
-      "PASS",
-      ""
-    ],
-    [
-      "Managed delete actions present",
-      "PASS",
-      ""
-    ],
-    [
-      "Signed cleanup token generated",
-      "PASS",
-      ""
-    ],
-    [
-      "Signed cleanup token verified",
-      "PASS",
-      ""
-    ],
-    [
-      "Delete token secret auto provisioned",
-      "PASS",
-      ""
-    ],
-    [
-      "No volatile CacheService delete ticket",
-      "PASS",
-      ""
-    ],
-    [
-      "Managed delete reads durable RTDB job",
-      "PASS",
-      ""
-    ],
-    [
-      "Managed delete checks HSBA root",
-      "PASS",
-      ""
-    ],
-    [
-      "Managed delete checks HSBA-managed description",
-      "PASS",
-      ""
-    ],
-    [
-      "Managed delete checks current book reference",
-      "PASS",
-      ""
-    ],
-    [
-      "Managed delete checks death reference",
-      "PASS",
-      ""
-    ],
-    [
-      "Already-trashed deletion is idempotent",
-      "PASS",
-      ""
-    ],
-    [
-      "Transition fallback remains safe",
-      "PASS",
-      ""
-    ],
-    [
-      "File Service stores uploads in Drive",
-      "PASS",
-      ""
-    ],
-    [
-      "Rules include private cleanup queue",
-      "PASS",
-      ""
-    ],
-    [
-      "Cleanup queue not public",
-      "PASS",
-      ""
-    ],
-    [
-      "Cleanup queue indexed",
-      "PASS",
-      ""
-    ],
-    [
-      "Queue creation bound to current user",
-      "PASS",
-      ""
-    ],
-    [
-      "Queue immutable file/token context",
-      "PASS",
-      ""
-    ],
-    [
-      "Editor cannot retarget cleanup patient",
-      "PASS",
-      ""
-    ],
-    [
-      "Rules public mode retained",
-      "PASS",
-      ""
-    ],
-    [
-      "Private books require auth",
-      "PASS",
-      ""
-    ],
-    [
-      "Rules enforce death last for all writers",
-      "PASS",
-      ""
-    ],
-    [
-      "Rules no admin bypass for death-last clause",
-      "PASS",
-      ""
-    ],
-    [
-      "Rules enforce one death via hoSoTuVong",
-      "PASS",
-      ""
-    ],
-    [
-      "Book operation token protected",
-      "PASS",
-      ""
-    ],
-    [
-      "Same UID cannot replace active lock token",
-      "PASS",
-      ""
-    ],
-    [
-      "Storage scoped rules",
-      "PASS",
-      ""
-    ],
-    [
-      "Patient page bounded",
-      "PASS",
-      ""
-    ],
-    [
-      "Death page bounded",
-      "PASS",
-      ""
-    ],
-    [
-      "Status filter remote query",
-      "PASS",
-      ""
-    ],
-    [
-      "Storage summary/lazy detail",
-      "PASS",
-      ""
-    ],
-    [
-      "Report Excel includes storage area",
-      "PASS",
-      ""
-    ],
-    [
-      "Large report yields event loop",
-      "PASS",
-      ""
-    ],
-    [
-      "Public schema excludes scan URLs from death helper",
-      "PASS",
-      ""
-    ],
-    [
-      "Rules validation JSON parses",
+      "Create delete request action retained",
       "PASS",
       ""
     ],
@@ -342,47 +117,23 @@
       ""
     ],
     [
-      "Rules handoff ends at exact HSBA boundary",
+      "Rules handoff contains current HSBA nodes",
       "PASS",
       ""
     ],
     [
-      "Synthetic 500 patient traversal",
+      "Rules handoff ends at HSBA boundary",
       "PASS",
-      "0.375 ms / 1500 books"
+      ""
     ],
     [
-      "Synthetic 2000 patient traversal",
+      "Rules handoff does not include shared app namespaces",
       "PASS",
-      "2.565 ms / 6000 books"
-    ],
-    [
-      "Synthetic 5000 patient traversal",
-      "PASS",
-      "3.723 ms / 15000 books"
+      ""
     ]
   ],
-  "synthetic_performance": [
-    {
-      "patients": 500,
-      "books": 1500,
-      "elapsed_ms": 0.375,
-      "common_boxes": 3,
-      "death_boxes": 3
-    },
-    {
-      "patients": 2000,
-      "books": 6000,
-      "elapsed_ms": 2.565,
-      "common_boxes": 10,
-      "death_boxes": 10
-    },
-    {
-      "patients": 5000,
-      "books": 15000,
-      "elapsed_ms": 3.723,
-      "common_boxes": 25,
-      "death_boxes": 25
-    }
-  ]
+  "summary": {
+    "pass": 26,
+    "fail": 0
+  }
 }
